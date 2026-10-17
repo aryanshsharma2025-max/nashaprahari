@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-highest":"#e0e3e6","outline":"#74777e","tertiary-fixed":"#d3e4fe","error":"#ba1a1a","on-secondary-fixed":"#00201d","surface-variant":"#e0e3e6","on-secondary-container":"#006f67","error-container":"#ffdad6","surface-bright":"#f7f9fc","on-error":"#ffffff","tertiary-fixed-dim":"#b7c8e1","inverse-surface":"#2d3133","inverse-on-surface":"#eff1f4","secondary":"#006a63","on-primary-container":"#7d93b2","on-primary-fixed-variant":"#334863","on-secondary":"#ffffff","on-background":"#191c1e","secondary-fixed-dim":"#80d5cb","on-primary-fixed":"#031c36","surface-dim":"#d8dadd","tertiary-container":"#1b2b3f","on-surface-variant":"#43474d","inverse-primary":"#b2c8e9","primary-fixed-dim":"#b2c8e9","surface-container-high":"#e6e8eb","surface-tint":"#4a607c","primary":"#00162e","on-error-container":"#93000a","on-tertiary-fixed-variant":"#38485d","on-tertiary":"#ffffff","on-tertiary-fixed":"#0b1c30","surface-container":"#eceef1","surface":"#f7f9fc","primary-container":"#142b45","primary-fixed":"#d3e4ff","on-primary":"#ffffff","outline-variant":"#c4c6ce","on-tertiary-container":"#8292ab","secondary-fixed":"#9cf2e8","background":"#f7f9fc","surface-container-low":"#f2f4f7","tertiary":"#051629","on-secondary-fixed-variant":"#00504a","secondary-container":"#99efe5","on-surface":"#191c1e","surface-container-lowest":"#ffffff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"gutter-desktop":"1.5rem","space-sm":"0.5rem","margin-desktop":"2rem","space-md":"1rem","space-lg":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-xl":"2rem",margin:"1rem"},fontFamily:{"headline-md":["Inter"],"body-lg":["Inter"],"label-lg":["Inter"],"label-md":["Inter"],"code-md":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"headline-lg-mobile":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"title-sm":["Inter"],"headline-sm":["Inter"],"title-md":["Inter"]},fontSize:{"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"500"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.04em",fontWeight:"600"}],"code-md":["13px",{lineHeight:"18px",fontWeight:"500"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg-mobile":["26px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"600"}],"title-sm":["14px",{lineHeight:"20px",fontWeight:"600"}],"headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],"title-md":["16px",{lineHeight:"24px",fontWeight:"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest border-r border-outline-variant z-50 flex flex-col justify-between shadow-[0_1px_2px_0_rgba(15,23,42,0.05)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-outline-variant bg-surface-container-lowest"><span class="material-symbols-outlined text-primary-container text-[24px]">shield</span><div class="flex flex-col"><span class="font-title-md text-title-md text-primary-container tracking-tight leading-none">NashaPrahari</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant leading-none mt-space-xs">Field Ops & Evidence</span></div></div><div class="px-space-md py-space-sm"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant px-space-sm py-space-xs block">Console Navigation</span><nav class="flex flex-col gap-space-xs mt-space-xs" data-active-classes="bg-primary-container text-on-primary font-title-sm shadow-sm"><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm rounded transition-colors bg-primary-container text-on-primary font-title-sm shadow-sm" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-title-sm text-title-sm">Dashboard</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="new-test-workflow" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">biotech</span><span class="font-title-sm text-title-sm">New Test Workflow</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="test-records-history" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">history_edu</span><span class="font-title-sm text-title-sm">Test Records & History</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="sync-queue" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sync_alt</span><span class="font-title-sm text-title-sm">Sync Queue</span></div><span class="bg-secondary-container text-on-secondary-container px-space-xs py-0.5 rounded font-label-sm text-label-sm">2</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="evidence-locker" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-title-sm text-title-sm">Evidence Locker</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="help-protocols" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-title-sm text-title-sm">Help & Protocols</span></div></a></nav></div></div><div class="p-space-md border-t border-outline-variant bg-surface-container-low"><div class="flex items-center justify-between mb-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Diagnostics</span><span class="font-code-md text-code-md text-on-surface-variant">v2.4.1-field</span></div><div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary"></span><span>Operational Core</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-[14px]">storage</span><span>Local Storage Healthy</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest border-b border-outline-variant z-40 px-space-lg flex items-center justify-between shadow-[0_1px_2px_0_rgba(15,23,42,0.05)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface font-title-sm text-title-sm"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">apartment</span><span>North Zone Field Command</span><span class="text-outline-variant">·</span><span class="font-body-md text-body-md text-on-surface-variant">Insp. A. Rathore <span class="font-code-md text-code-md text-primary font-semibold">#84920</span></span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded border border-outline-variant font-label-md text-label-md"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="text-on-surface font-semibold">Online</span><span class="text-outline-variant">·</span><span class="text-on-surface-variant font-normal">2 Pending</span></div><button class="flex items-center gap-space-xs bg-surface-container-lowest hover:bg-surface-container text-primary-container hover:text-on-surface border border-outline-variant px-space-md py-1.5 rounded transition-colors font-label-md text-label-md" type="button"><span class="material-symbols-outlined text-[18px]">sync</span><span>Sync</span></button><div class="h-6 w-px bg-outline-variant"></div><div class="flex items-center gap-space-sm cursor-pointer"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div></div></header><main class="relative pt-16 w-full px-space-lg bg-background min-h-screen"><div class="flex flex-col w-full pb-space-xl">
+<!-- Top Command Action Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md py-space-md border-b border-outline-variant">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Officer Field Dashboard</h1>
+<span class="bg-surface-container px-space-xs py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Field Console</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs flex items-center gap-space-xs flex-wrap">
+<span class="font-title-sm text-title-sm text-on-surface">Insp. A. Rathore</span>
+<span class="font-code-md text-code-md text-primary font-semibold">#84920</span>
+<span class="text-outline-variant">·</span>
+<span>NH-44 Toll Plaza North (Morning Shift)</span>
+<span class="text-outline-variant">·</span>
+<span class="text-secondary font-medium">Operational Sector 4</span>
+</p>
+</div>
+<!-- Action Group -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Online (Cellular)</span>
+<span class="text-outline-variant">·</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 records awaiting sync</span>
+</div>
+<button class="flex items-center gap-space-xs bg-surface-container-lowest hover:bg-surface-container text-primary-container font-label-md text-label-md px-space-md h-9 rounded border border-outline-variant transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>Sync (2)</span>
+</button>
+<a class="flex items-center gap-space-xs bg-primary-container hover:bg-tertiary-container text-on-primary font-title-sm text-title-sm px-space-md h-9 rounded transition-colors shadow-sm" href="#">
+<span>+ Start New Field Test</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Statutory Field Notice (Restrained Utilitarian Banner) -->
+<div class="mt-space-md bg-surface-container-lowest border border-outline-variant rounded p-space-md shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[20px]">biotech</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap mb-1">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">Statutory Field Notice</span>
+<span class="bg-surface-container px-space-xs py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant font-medium">Demonstration Data</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Field-test outputs are presumptive screening only. Confirmatory laboratory analysis (GC-MS / HPLC) is required for formal legal proceedings. (Sample demonstration records)
+        </p>
+</div>
+</div>
+</div>
+<!-- Operational Metrics Row (4 Dense Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mt-space-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">Today's Tests</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">assignment</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Logged</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-primary-container h-full w-full"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">Synced to Server</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">cloud_done</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-secondary tracking-tight">12</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Verified</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-secondary h-full w-[85%]"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">Queued Offline</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">cloud_queue</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight">2</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pending · Awaiting link</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-outline h-full w-[15%]"></div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-space-md flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">Available Kits</span>
+<span class="material-symbols-outlined text-primary-container text-[20px]">inventory_2</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">18</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Remaining</span>
+</div>
+<div class="flex items-center justify-between mt-space-xs font-code-md text-code-md text-on-surface-variant">
+<span>Lot #NP-9042</span>
+<span class="text-secondary font-semibold">Active</span>
+</div>
+</div>
+</div>
+<!-- Primary Two-Column Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md mt-space-md items-start">
+<!-- Left Column: Recent Records Data Table (70% on Desktop / cols 1-8) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded shadow-sm flex flex-col overflow-hidden">
+<!-- Table Header & Filter Bar -->
+<div class="p-space-md border-b border-outline-variant flex flex-col sm:flex-row sm:items-center justify-between gap-space-md bg-surface-container-lowest">
+<div class="flex items-center gap-space-sm">
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Recent Records</h2>
+<span class="bg-surface-container px-space-xs py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant">Sample Records</span>
+</div>
+<div class="flex items-center gap-space-sm flex-1 sm:justify-end">
+<div class="relative w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded pl-8 pr-3 py-1 font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-secondary transition-colors" placeholder="Search by record ID, lot..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs">
+<select class="bg-surface-container-low border border-outline-variant rounded px-space-sm py-1 font-label-md text-label-md text-on-surface focus:outline-none focus:border-secondary">
+<option>All Results (14)</option>
+<option>Presumptive Positive</option>
+<option>Presumptive Negative</option>
+<option>Inconclusive</option>
+</select>
+<a class="font-label-md text-label-md text-secondary hover:underline whitespace-nowrap pl-space-xs font-medium" href="#">View All (14)</a>
+</div>
+</div>
+</div>
+<!-- Tabular Records Section -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+<th class="py-2.5 px-space-md font-semibold">Record ID</th>
+<th class="py-2.5 px-space-md font-semibold">Timestamp</th>
+<th class="py-2.5 px-space-md font-semibold">Location</th>
+<th class="py-2.5 px-space-md font-semibold">Test Type & Reagent</th>
+<th class="py-2.5 px-space-md font-semibold">Presumptive Result</th>
+<th class="py-2.5 px-space-md font-semibold">Sync Status</th>
+<th class="py-2.5 px-space-md text-right font-semibold">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-md text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md font-code-md text-code-md text-primary font-bold">
+                NP-2025-0894
+              </td>
+<td class="py-3 px-space-md font-code-md text-code-md text-on-surface-variant whitespace-nowrap">
+                14:22 IST
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">NH-44 Toll Plaza North</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lane 03</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Narcotics Kit A</span>
+<span class="font-code-md text-code-md text-on-surface-variant">Lot #NP-9042</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container border border-error/20 px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Presumptive Positive
+                </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface-variant border border-outline-variant px-space-xs py-0.5 rounded font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">hourglass_empty</span>
+                  Awaiting Sync
+                </span>
+</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<a class="font-label-md text-label-md text-primary hover:text-secondary inline-flex items-center gap-0.5 font-medium" href="#">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md font-code-md text-code-md text-primary font-bold">
+                NP-2025-0893
+              </td>
+<td class="py-3 px-space-md font-code-md text-code-md text-on-surface-variant whitespace-nowrap">
+                13:48 IST
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Sector 11 Cargo Depot</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bay 12</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Narcotics Kit A</span>
+<span class="font-code-md text-code-md text-on-surface-variant">Lot #NP-9042</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/40 text-on-secondary-container border border-secondary/20 px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  Presumptive Negative
+                </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-secondary border border-secondary-fixed-dim px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">done</span>
+                  Synced
+                </span>
+</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<a class="font-label-md text-label-md text-primary hover:text-secondary inline-flex items-center gap-0.5 font-medium" href="#">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md font-code-md text-code-md text-primary font-bold">
+                NP-2025-0892
+              </td>
+<td class="py-3 px-space-md font-code-md text-code-md text-on-surface-variant whitespace-nowrap">
+                13:10 IST
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Sector 11 Cargo Depot</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vehicle Inspect</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Opioid Screening B</span>
+<span class="font-code-md text-code-md text-on-surface-variant">Lot #NP-8819</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface-variant border border-outline-variant px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">help</span>
+                  Retest Required (Inconclusive)
+                </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-secondary border border-secondary-fixed-dim px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">done</span>
+                  Synced
+                </span>
+</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<a class="font-label-md text-label-md text-primary hover:text-secondary inline-flex items-center gap-0.5 font-medium" href="#">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md font-code-md text-code-md text-primary font-bold">
+                NP-2025-0891
+              </td>
+<td class="py-3 px-space-md font-code-md text-code-md text-on-surface-variant whitespace-nowrap">
+                11:45 IST
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Interstate Bus Terminal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bay 3</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Narcotics Kit A</span>
+<span class="font-code-md text-code-md text-on-surface-variant">Lot #NP-9042</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/40 text-on-secondary-container border border-secondary/20 px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  Presumptive Negative
+                </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-secondary border border-secondary-fixed-dim px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">done</span>
+                  Synced
+                </span>
+</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<a class="font-label-md text-label-md text-primary hover:text-secondary inline-flex items-center gap-0.5 font-medium" href="#">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md font-code-md text-code-md text-primary font-bold">
+                NP-2025-0890
+              </td>
+<td class="py-3 px-space-md font-code-md text-code-md text-on-surface-variant whitespace-nowrap">
+                10:15 IST
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">NH-44 Toll Plaza North</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lane 01</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Synthetic Reagent C</span>
+<span class="font-code-md text-code-md text-on-surface-variant">Lot #NP-8819</span>
+</div>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container border border-error/20 px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Presumptive Positive
+                </span>
+</td>
+<td class="py-3 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-secondary border border-secondary-fixed-dim px-space-xs py-0.5 rounded font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">done</span>
+                  Synced
+                </span>
+</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap">
+<a class="font-label-md text-label-md text-primary hover:text-secondary inline-flex items-center gap-0.5 font-medium" href="#">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer & Pagination -->
+<div class="p-space-md bg-surface-container-low border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+<span>Showing 5 of 14 demo records</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 bg-surface-container-lowest border border-outline-variant rounded text-outline cursor-not-allowed" disabled="" type="button">
+            Previous
+          </button>
+<span class="px-space-sm py-1 font-semibold text-primary">1</span>
+<button class="px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded text-on-surface" type="button">
+            2
+          </button>
+<button class="px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded text-on-surface" type="button">
+            3
+          </button>
+<button class="px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded text-on-surface" type="button">
+            Next
+          </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Terminal Status & Quick Field Protocols (30% on Desktop / cols 9-12) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Terminal Status Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="p-space-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">monitor_heart</span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Terminal Status</h2>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm font-semibold text-secondary uppercase tracking-wider">Operational</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<!-- Offline Storage Row -->
+<div class="flex items-start gap-space-md p-space-sm bg-surface-container-low rounded border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mt-0.5">database</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Offline Storage</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2 records locally awaiting sync</span>
+<span class="font-code-md text-code-md text-primary font-medium mt-1">Storage: 99.4% available</span>
+</div>
+</div>
+<!-- Battery Row -->
+<div class="flex items-start gap-space-md p-space-sm bg-surface-container-low rounded border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">battery_5_bar</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Battery: 88%</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Optimal</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~6.5 hrs remain (Operational shift)</span>
+</div>
+</div>
+<!-- Active Shift Context -->
+<div class="flex items-start gap-space-md p-space-sm bg-surface-container-low rounded border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mt-0.5">badge</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Active Duty Shift</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Insp. A. Rathore · Morning Shift</span>
+<span class="font-code-md text-code-md text-on-surface-variant">06:00 – 14:00 IST (Sector 4)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Field Protocols Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="p-space-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">menu_book</span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Quick Field Protocols</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">SOP v2.4</span>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Protocol 1 -->
+<a class="p-space-md flex items-start justify-between gap-space-md hover:bg-surface-container-low transition-colors group" href="#">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified_user</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary font-semibold">Evidence Handling SOP</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Tamper-proof bag sealing & chain of custody checklist</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[20px] shrink-0">arrow_forward</span>
+</a>
+<!-- Protocol 2 -->
+<a class="p-space-md flex items-start justify-between gap-space-md hover:bg-surface-container-low transition-colors group" href="#">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">phone_in_talk</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-secondary font-semibold">Laboratory Helpline</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Confirmatory GC-MS/HPLC dispatch duty contact</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary text-[20px] shrink-0">call</span>
+</a>
+<!-- Protocol 3 -->
+<a class="p-space-md flex items-start justify-between gap-space-md hover:bg-surface-container-low transition-colors group" href="#">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">fact_check</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary font-semibold">Reagent Expiry & Calibration Check</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Lot verification guidelines & temperature thresholds</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[20px] shrink-0">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quick Kit Inventory Verification Pill -->
+<div class="bg-surface-container-high/60 border border-outline-variant rounded p-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">qr_code_scanner</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Scan Test Kit Barcode</span>
+</div>
+<button class="bg-surface-container-lowest hover:bg-surface-container text-primary-container px-space-sm py-1 rounded border border-outline-variant font-label-sm text-label-sm font-semibold" type="button">
+          Open Scanner
+        </button>
+</div>
+</div>
+</div>
+<!-- Utilitarian Sub-Footer Metadata -->
+<div class="mt-space-lg pt-space-md border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span>Demonstration Environment — Sample Operational Records Only</span>
+</div>
+<div class="flex items-center gap-space-md font-code-md text-code-md">
+<span>Terminal Session ID: #84920-A</span>
+<span class="text-outline-variant">|</span>
+<span>App Version: 2.4.1-field</span>
+</div>
+</div>
+</div></main></div></body></html>
