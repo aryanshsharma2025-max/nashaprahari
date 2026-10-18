@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
+import { useIsMobile } from '../components/common/useIsMobile';
 
 interface SyncQueuePageProps {
   records: TestRecord[];
@@ -15,6 +17,12 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
   onSync,
   isSyncing,
 }) => {
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useReducedMotion();
+  const transition = shouldReduceMotion || isMobile
+    ? { duration: 0 }
+    : { type: 'spring' as const, stiffness: 380, damping: 34, mass: 0.8 };
+
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
 
   const pendingRecords = records.filter((r) => r.syncStatus === 'pending');
@@ -145,55 +153,62 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
           </div>
         ) : (
           <div className="np-short-records-list">
-            {pendingRecords.map((r) => (
-              <div
-                key={r.id}
-                className="np-short-record-row"
-                onClick={() => setSelectedRecord(r)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setSelectedRecord(r);
-                  }
-                }}
-              >
-                <div className="np-short-record-left">
-                  <div className="np-short-record-icon" style={{ backgroundColor: '#fffbeb', color: '#b45309' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-                      schedule
-                    </span>
-                  </div>
-                  <div className="np-short-record-info">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span className="np-record-id">{r.id}</span>
-                      <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
-                        · {r.timestamp}
+            <AnimatePresence initial={false}>
+              {pendingRecords.map((r) => (
+                <motion.div
+                  key={r.id}
+                  layout={!isMobile}
+                  layoutId={isMobile || shouldReduceMotion ? undefined : `sync-queue-${r.id}`}
+                  className="np-short-record-row"
+                  onClick={() => setSelectedRecord(r)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedRecord(r);
+                    }
+                  }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, overflow: 'hidden', padding: 0 }}
+                  aria-label={`View pending record ${r.id}, ${r.testType}`}
+                  transition={transition}
+                >
+                  <div className="np-short-record-left">
+                    <div className="np-short-record-icon" style={{ backgroundColor: '#fffbeb', color: '#b45309' }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                        schedule
                       </span>
-                      {r.chainOfCustody?.tamperBagId && (
-                        <span className="badge-demo font-code" style={{ fontSize: '10px' }}>
-                          {r.chainOfCustody.tamperBagId}
-                        </span>
-                      )}
                     </div>
-                    <div className="np-short-record-sub">
-                      <span>{r.location} ({r.subLocation})</span>
-                      <span>·</span>
-                      <span>{r.testType}</span>
+                    <div className="np-short-record-info">
+                      <div className="np-list-primary-line">
+                        <span className="np-record-id">{r.id}</span>
+                        <span className="np-record-sep">·</span>
+                        <span className="np-record-title">{r.testType}</span>
+                        {r.chainOfCustody?.tamperBagId && (
+                          <span className="np-record-tag">{r.chainOfCustody.tamperBagId}</span>
+                        )}
+                      </div>
+                      <div className="np-short-record-sub">
+                        <span className="np-record-location">{r.location}</span>
+                        {r.subLocation && <span className="np-record-meta">({r.subLocation})</span>}
+                        <span className="np-record-sep">·</span>
+                        <span className="np-record-meta">{r.timestamp}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="np-short-record-right">
-                  <div className="np-short-record-badges">
-                    <StatusBadge type="result" result={r.result} />
-                    <span className="badge badge-amber-accent">Pending Upload</span>
+                  <div className="np-short-record-right">
+                    <div className="np-short-record-badges">
+                      <StatusBadge type="result" result={r.result} />
+                      <span className="badge badge-amber-accent">Pending Upload</span>
+                    </div>
+                    <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
                   </div>
-                  <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
-                </div>
-              </div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         )}
       </div>
@@ -215,8 +230,9 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
 
           <div className="np-short-records-list">
             {syncedRecords.slice(0, 5).map((r) => (
-              <div
+              <motion.div
                 key={r.id}
+                layoutId={isMobile || shouldReduceMotion ? undefined : `sync-queue-${r.id}`}
                 className="np-short-record-row"
                 onClick={() => setSelectedRecord(r)}
                 role="button"
@@ -227,6 +243,8 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
                     setSelectedRecord(r);
                   }
                 }}
+                aria-label={`View synced record ${r.id}, ${r.testType}`}
+                transition={transition}
               >
                 <div className="np-short-record-left">
                   <div className="np-short-record-icon" style={{ backgroundColor: '#f0fdf4', color: '#15803d' }}>
@@ -235,16 +253,19 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
                     </span>
                   </div>
                   <div className="np-short-record-info">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div className="np-list-primary-line">
                       <span className="np-record-id">{r.id}</span>
-                      <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
-                        · {r.timestamp}
-                      </span>
+                      <span className="np-record-sep">·</span>
+                      <span className="np-record-title">{r.testType}</span>
+                      {r.chainOfCustody?.tamperBagId && (
+                        <span className="np-record-tag">{r.chainOfCustody.tamperBagId}</span>
+                      )}
                     </div>
                     <div className="np-short-record-sub">
-                      <span>{r.location}</span>
-                      <span>·</span>
-                      <span>{r.testType}</span>
+                      <span className="np-record-location">{r.location}</span>
+                      {r.subLocation && <span className="np-record-meta">({r.subLocation})</span>}
+                      <span className="np-record-sep">·</span>
+                      <span className="np-record-meta">{r.timestamp}</span>
                     </div>
                   </div>
                 </div>
@@ -256,16 +277,17 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
                   </div>
                   <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Record Inspection Modal */}
+      {/* Record Inspection Modal with shared-element transition */}
       <RecordDetailModal
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}
+        layoutIdPrefix="sync-queue"
       />
     </div>
   );

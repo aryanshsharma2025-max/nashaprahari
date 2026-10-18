@@ -15,59 +15,55 @@ export const OfficerStatusHeader: React.FC<OfficerStatusHeaderProps> = ({
   isSyncing,
 }) => {
   return (
-    <section className="np-officer-status-card" aria-label="Officer Field Status">
-      <div className="np-officer-info-group">
-        <div className="np-officer-avatar" aria-hidden="true">
-          <span className="material-symbols-outlined" style={{ fontSize: '26px' }}>
-            shield_person
+    <div className="np-officer-strip" aria-label="Active Officer Session">
+      <div className="np-officer-strip-left">
+        <span className="material-symbols-outlined np-officer-strip-icon" aria-hidden="true">
+          shield_person
+        </span>
+        <div className="np-officer-strip-text">
+          <div className="np-officer-strip-name">
+            <span>Welcome <strong>{session.officerName}</strong></span>
+            <span className="np-officer-strip-badge">Badge #{session.officerBadge}</span>
+          </div>
+          <span className="np-officer-strip-sub">
+            {session.location} · {session.shift} ({session.sector})
           </span>
-        </div>
-        <div className="np-officer-details">
-          <div className="np-officer-name-row">
-            <span className="text-title-md np-officer-name">{session.officerName}</span>
-            <span className="badge-demo font-code" title="Officer Badge Number">
-              {session.officerBadge}
-            </span>
-            <span className="badge-demo" title="Demonstration Mode">Demo</span>
-          </div>
-          <div className="text-body-sm np-officer-meta">
-            <span className="material-symbols-outlined np-officer-meta-icon">pin_drop</span>
-            <span className="np-officer-location">{session.location}</span>
-            <span className="np-meta-divider">·</span>
-            <span className="np-officer-shift">{session.shift} ({session.sector})</span>
-          </div>
         </div>
       </div>
 
-      {/* Connectivity & Fast Upload Action */}
-      <div className="np-officer-sync-group">
-        <div className="np-connection-pill font-tabular" title="Device Connectivity">
+      <div className="np-officer-strip-right">
+        <div className="np-officer-strip-pill" title="Network status">
           <span
-            className="np-status-dot animate-pulse"
-            style={{ backgroundColor: session.connectionStatus !== 'offline' ? 'var(--secondary)' : 'var(--error)' }}
-          ></span>
-          <span className="np-connection-text">
+            className="np-officer-strip-dot"
+            style={{ backgroundColor: session.connectionStatus !== 'offline' ? '#047857' : '#b91c1c' }}
+          />
+          <span className="font-tabular">
             {session.connectionStatus !== 'offline' ? 'Online' : 'Offline'}
           </span>
-          <span className="np-meta-divider">·</span>
-          <span className="np-pending-count-text">
-            {pendingSyncCount > 0 ? `${pendingSyncCount} Pending Upload${pendingSyncCount > 1 ? 's' : ''}` : 'All Uploaded'}
-          </span>
+          {pendingSyncCount > 0 && (
+            <span className="np-officer-strip-count font-tabular">
+              {pendingSyncCount} queued
+            </span>
+          )}
         </div>
 
         <button
           type="button"
-          className="btn btn-outline btn-sm font-tabular"
           onClick={onSync}
           disabled={isSyncing || pendingSyncCount === 0}
-          title={pendingSyncCount > 0 ? 'Upload pending field records to central ledger' : 'No records awaiting upload'}
+          className="btn btn-outline btn-sm font-tabular np-officer-strip-sync"
+          title={pendingSyncCount > 0 ? 'Upload pending field records' : 'All records synced'}
+          aria-label="Synchronize pending records"
         >
-          <span className={`material-symbols-outlined ${isSyncing ? 'animate-spin' : ''}`} style={{ fontSize: '16px' }}>
+          <span
+            className={`material-symbols-outlined ${isSyncing ? 'animate-spin' : ''}`}
+            style={{ fontSize: '16px' }}
+          >
             sync
           </span>
-          <span>{isSyncing ? 'Syncing...' : `Sync Now (${pendingSyncCount})`}</span>
+          <span>{isSyncing ? 'Syncing...' : `Sync (${pendingSyncCount})`}</span>
         </button>
       </div>
-    </section>
+    </div>
   );
 };

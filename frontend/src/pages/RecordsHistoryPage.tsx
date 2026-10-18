@@ -1,14 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'motion/react';
 import type { TestRecord, PresumptiveResult } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
+import { useIsMobile } from '../components/common/useIsMobile';
 
 interface RecordsHistoryPageProps {
   records: TestRecord[];
 }
 
 export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records }) => {
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useReducedMotion();
+  const transition = shouldReduceMotion || isMobile
+    ? { duration: 0 }
+    : { type: 'spring' as const, stiffness: 380, damping: 34, mass: 0.8 };
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | PresumptiveResult | 'pending_sync'>('all');
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
@@ -282,8 +290,9 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
             {/* Responsive Card Stream (Mobile & Tablet) */}
             <div className="np-short-records-list">
               {filteredRecords.map((rec) => (
-                <div
+                <motion.div
                   key={rec.id}
+                  layoutId={isMobile || shouldReduceMotion ? undefined : `records-ledger-${rec.id}`}
                   className="np-short-record-row"
                   onClick={() => setSelectedRecord(rec)}
                   role="button"
@@ -295,6 +304,7 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
                     }
                   }}
                   aria-label={`View record ${rec.id}`}
+                  transition={transition}
                 >
                   <div className="np-short-record-left">
                     <div className="np-short-record-icon">
@@ -303,25 +313,25 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
                       </span>
                     </div>
                     <div className="np-short-record-info">
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <div className="np-list-primary-line">
                         <span className="np-record-id">{rec.id}</span>
-                        <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
-                          · {rec.timestamp}
-                        </span>
+                        <span className="np-record-sep">·</span>
+                        <span className="np-record-title">{rec.testType}</span>
                         {rec.chainOfCustody?.tamperBagId && (
-                          <span className="badge-demo font-code" style={{ fontSize: '10px' }}>
-                            {rec.chainOfCustody.tamperBagId}
-                          </span>
+                          <span className="np-record-tag">{rec.chainOfCustody.tamperBagId}</span>
                         )}
                       </div>
                       <div className="np-short-record-sub">
-                        <span>{rec.location}</span>
-                        <span>·</span>
-                        <span style={{ color: 'var(--on-surface)' }}>{rec.testType}</span>
+                        <span className="np-record-location">{rec.location}</span>
+                        {rec.subLocation && (
+                          <span className="np-record-meta">({rec.subLocation})</span>
+                        )}
+                        <span className="np-record-sep">·</span>
+                        <span className="np-record-meta">{rec.timestamp}</span>
                         {rec.suspectIdentifier && (
                           <>
-                            <span>·</span>
-                            <span style={{ color: 'var(--primary)', fontStyle: 'italic' }}>{rec.suspectIdentifier}</span>
+                            <span className="np-record-sep">·</span>
+                            <span className="np-record-ref">{rec.suspectIdentifier}</span>
                           </>
                         )}
                       </div>
@@ -335,17 +345,18 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
                     </div>
                     <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </>
         )}
       </div>
 
-      {/* Record Inspection Modal */}
+      {/* Record Inspection Modal with shared-element transition */}
       <RecordDetailModal
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}
+        layoutIdPrefix="records-ledger"
       />
     </div>
   );

@@ -23,7 +23,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* 1. Officer Context & Essential Connectivity */}
       <OfficerStatusHeader
         session={session}
@@ -38,45 +38,44 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         totalRecordsCount={records.length}
       />
 
-      {/* 4. Short Recent-Records List */}
+      {/* 3. Short Recent-Records List */}
       <RecentRecordsShortList
         records={records}
         onViewRecord={(rec) => setSelectedRecord(rec)}
         maxItems={4}
+        layoutIdPrefix="dashboard-record"
       />
 
-      {/* 5. Minimal Sub-Footer Session Disclaimers */}
+      {/* 4. Minimal Sub-Footer Session Disclaimers */}
       <footer
         style={{
-          marginTop: '8px',
-          paddingTop: '16px',
+          marginTop: '4px',
+          paddingTop: '12px',
           borderTop: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '12px',
+          gap: '8px',
           color: 'var(--on-surface-variant)',
+          fontSize: '12px',
         }}
-        className="text-body-sm"
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--outline)' }}></span>
-          <span>Field Demonstration Environment — Sample Records Only (SIH 2026)</span>
+          <span>Field Evaluation Prototype (SIH 2026) · Local Storage Active</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="font-code">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="font-code">
           <span>Terminal: {session.terminalSessionId}</span>
-          <span style={{ color: 'var(--outline-variant)' }}>|</span>
-          <span>App: v{session.appVersion}</span>
         </div>
       </footer>
 
-      {/* Record Inspection Modal */}
+      {/* Record Inspection Modal with shared element animation */}
       <RecordDetailModal
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}
+        layoutIdPrefix="dashboard-record"
       />
     </div>
   );
 };
-

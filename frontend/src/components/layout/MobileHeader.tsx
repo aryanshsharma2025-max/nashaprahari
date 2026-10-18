@@ -10,98 +10,74 @@ interface MobileHeaderProps {
 export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSyncCount, onLogout }) => {
   return (
     <header className="np-mobile-header pt-safe">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div
+      {/* Brand */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: '22px', color: '#fff' }}>
+          shield
+        </span>
+        <span style={{ color: '#fff', fontWeight: 800, fontSize: '16px', letterSpacing: '-0.01em' }}>
+          NashaPrahari
+        </span>
+        <span
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '8px',
-            backgroundColor: 'var(--primary-container)',
-            color: 'var(--on-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            fontSize: '10px',
+            fontWeight: 700,
+            padding: '1px 5px',
+            borderRadius: '3px',
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            color: 'rgba(255,255,255,0.9)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
           }}
         >
-          <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-            verified_user
-          </span>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span className="text-title-md" style={{ color: 'var(--primary)', lineHeight: 1.1 }}>
-            NashaPrahari
-          </span>
-          <span className="text-label-sm" style={{ color: 'var(--on-surface-variant)', textTransform: 'uppercase' }}>
-            Field Companion
-          </span>
-        </div>
+          Demo
+        </span>
       </div>
 
+      {/* Status + Sign out */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span className="badge-demo" style={{ fontSize: '11px', padding: '2px 6px' }}>Demo</span>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '4px 10px',
-            borderRadius: '9999px',
-            backgroundColor: 'var(--secondary-container)',
-            color: 'var(--on-secondary-container)',
-          }}
-          className="text-label-sm font-tabular"
-        >
-          <span
+        {/* Pending indicator */}
+        {pendingSyncCount > 0 && (
+          <div
             style={{
-              width: '7px',
-              height: '7px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--secondary)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              backgroundColor: 'rgba(249, 199, 79, 0.25)',
+              padding: '3px 7px',
+              borderRadius: '4px',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: '#FFF7CD',
             }}
-            className="animate-pulse"
-          ></span>
-          <span>Online · {pendingSyncCount}</span>
-        </div>
-
-        <div
-          style={{
-            width: '30px',
-            height: '30px',
-            borderRadius: '50%',
-            backgroundColor: 'var(--primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--on-primary)',
-          }}
-          title={`${session.officerName} (${session.officerBadge})`}
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
-            person
-          </span>
-        </div>
-
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>cloud_upload</span>
+            <span className="font-tabular">{pendingSyncCount}</span>
+          </div>
+        )}
+        {/* Officer badge */}
+        <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: '12px' }}>
+          #{session.officerBadge}
+        </span>
         {onLogout && (
           <button
             type="button"
             onClick={onLogout}
             aria-label="Sign out"
-            title="Sign out of officer terminal"
             style={{
               background: 'none',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '6px',
-              padding: '4px',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '5px',
+              padding: '4px 6px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--on-surface-variant)',
+              color: 'rgba(255,255,255,0.85)',
               cursor: 'pointer',
               minWidth: '30px',
               minHeight: '30px',
             }}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>logout</span>
+            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
           </button>
         )}
       </div>

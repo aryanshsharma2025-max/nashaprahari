@@ -1,14 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'motion/react';
 import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
+import { useIsMobile } from '../components/common/useIsMobile';
 
 interface EvidenceLockerPageProps {
   records: TestRecord[];
 }
 
 export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records }) => {
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useReducedMotion();
+  const transition = shouldReduceMotion || isMobile
+    ? { duration: 0 }
+    : { type: 'spring' as const, stiffness: 380, damping: 34, mass: 0.8 };
+
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'queued' | 'dispatched'>('all');
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
@@ -168,8 +176,9 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
         ) : (
           <div className="np-short-records-list">
             {filteredParcels.map((rec) => (
-              <div
+              <motion.div
                 key={rec.id}
+                layoutId={isMobile || shouldReduceMotion ? undefined : `evidence-locker-${rec.id}`}
                 className="np-short-record-row"
                 onClick={() => setSelectedRecord(rec)}
                 role="button"
@@ -180,6 +189,8 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
                     setSelectedRecord(rec);
                   }
                 }}
+                aria-label={`View evidence parcel ${rec.chainOfCustody?.tamperBagId}, Case ${rec.id}`}
+                transition={transition}
               >
                 <div className="np-short-record-left">
                   <div className="np-short-record-icon" style={{ backgroundColor: '#f1f5f9', color: 'var(--primary)' }}>
@@ -188,21 +199,17 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
                     </span>
                   </div>
                   <div className="np-short-record-info">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span className="np-record-id" style={{ color: 'var(--primary)', fontWeight: 800 }}>
-                        {rec.chainOfCustody?.tamperBagId}
-                      </span>
-                      <span className="text-body-sm font-code" style={{ color: 'var(--on-surface-variant)' }}>
-                        Case: {rec.id}
-                      </span>
-                      <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
-                        · Sealed at {rec.chainOfCustody?.sealedAt}
-                      </span>
+                    <div className="np-list-primary-line">
+                      <span className="np-record-id">{rec.chainOfCustody?.tamperBagId}</span>
+                      <span className="np-record-sep">·</span>
+                      <span className="np-record-title">Case #{rec.id}</span>
+                      <span className="np-record-sep">·</span>
+                      <span className="np-record-meta font-tabular">Sealed {rec.chainOfCustody?.sealedAt}</span>
                     </div>
                     <div className="np-short-record-sub">
-                      <span>Officer: {rec.chainOfCustody?.custodyOfficer}</span>
-                      <span>·</span>
-                      <span>{rec.location}</span>
+                      <span className="np-record-location">Officer: {rec.chainOfCustody?.custodyOfficer}</span>
+                      <span className="np-record-sep">·</span>
+                      <span className="np-record-meta">{rec.location}</span>
                     </div>
                   </div>
                 </div>
@@ -216,16 +223,17 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
                   </div>
                   <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Record Inspection Modal */}
+      {/* Record Inspection Modal with shared-element transition */}
       <RecordDetailModal
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}
+        layoutIdPrefix="evidence-locker"
       />
     </div>
   );

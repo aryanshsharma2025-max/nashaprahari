@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import type { OfficerSession, TestRecord, PresumptiveResult } from '../types/testRecord';
+import { useIsMobile } from '../components/common/useIsMobile';
 
 interface NewTestPageProps {
   session: OfficerSession;
@@ -9,6 +11,24 @@ interface NewTestPageProps {
 
 export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useReducedMotion();
+
+  const stepTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: isMobile ? 0.15 : 0.18, ease: 'easeOut' as const };
+
+  const stepInitial = shouldReduceMotion
+    ? false
+    : isMobile
+    ? { opacity: 0, y: 8 }
+    : { opacity: 0, x: 12 };
+
+  const stepExit = shouldReduceMotion
+    ? { opacity: 0 }
+    : isMobile
+    ? { opacity: 0, y: -6 }
+    : { opacity: 0, x: -12 };
 
   // Wizard Step: 1 = Location, 2 = Kit & Result, 3 = Review, 4 = Saved Confirmation
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
@@ -179,161 +199,181 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
         </div>
       )}
 
-      {/* STEP 1: Operational Location & Specimen Details */}
-      {step === 1 && (
-        <form onSubmit={handleStep1Continue} className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {/* Active Officer Identity Banner */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '6px' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--primary)' }}>
-              badge
-            </span>
-            <div style={{ fontSize: '13px' }}>
-              <span style={{ color: 'var(--on-surface-variant)' }}>Reporting Officer: </span>
-              <strong style={{ color: 'var(--primary)' }}>{session.officerName}</strong> ({session.officerBadge}) · {session.sector}
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            {/* Location / Post */}
-            <div className="np-form-field">
-              <label htmlFor="field-location" className="np-form-label">
-                <span>Location / Post <span className="np-form-label-required">*</span></span>
-              </label>
-              <input
-                id="field-location"
-                type="text"
-                className={`np-search-input ${errors.location ? 'np-input-error' : ''}`}
-                value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                  if (errors.location) setErrors((prev) => ({ ...prev, location: undefined }));
-                }}
-                placeholder="e.g. Sector 4 Interstate Checkpost"
-                style={{ width: '100%', maxWidth: 'none', height: '44px' }}
-                aria-invalid={Boolean(errors.location)}
-                aria-describedby={errors.location ? 'error-location' : undefined}
-              />
-              {errors.location && (
-                <div id="error-location" className="np-field-error-msg">
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>
-                  <span>{errors.location}</span>
+      <div style={{ overflow: 'hidden' }}>
+        <AnimatePresence mode="wait">
+          {/* STEP 1: Operational Location & Specimen Details */}
+          {step === 1 && (
+            <motion.form
+              key="step-1"
+              onSubmit={handleStep1Continue}
+              className="np-panel"
+              style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}
+              initial={stepInitial}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              exit={stepExit}
+              transition={stepTransition}
+            >
+              {/* Active Officer Identity Banner */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '6px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--primary)' }}>
+                  badge
+                </span>
+                <div style={{ fontSize: '13px' }}>
+                  <span style={{ color: 'var(--on-surface-variant)' }}>Reporting Officer: </span>
+                  <strong style={{ color: 'var(--primary)' }}>{session.officerName}</strong> ({session.officerBadge}) · {session.sector}
                 </div>
-              )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
-                <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
-                {['Sector 4 Interceptor', 'Cargo Depot Lane 2', 'Highway Toll Barrier'].map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => {
-                      setLocation(preset);
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+                {/* Location / Post */}
+                <div className="np-form-field">
+                  <label htmlFor="field-location" className="np-form-label">
+                    <span>Location / Post <span className="np-form-label-required">*</span></span>
+                  </label>
+                  <input
+                    id="field-location"
+                    type="text"
+                    className={`np-search-input ${errors.location ? 'np-input-error' : ''}`}
+                    value={location}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
                       if (errors.location) setErrors((prev) => ({ ...prev, location: undefined }));
                     }}
-                    style={{
-                      border: '1px solid var(--outline-variant)',
-                      backgroundColor: location === preset ? 'var(--surface-container-high)' : 'var(--surface)',
-                      color: location === preset ? 'var(--primary)' : 'var(--on-surface)',
-                      borderRadius: '4px',
-                      padding: '2px 8px',
-                      fontSize: '11px',
-                      fontWeight: location === preset ? 600 : 400,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {preset}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Lane / Checkpoint */}
-            <div className="np-form-field">
-              <label htmlFor="field-sublocation" className="np-form-label">
-                <span>Lane / Checkpoint <span className="np-form-label-required">*</span></span>
-              </label>
-              <input
-                id="field-sublocation"
-                type="text"
-                className={`np-search-input ${errors.subLocation ? 'np-input-error' : ''}`}
-                value={subLocation}
-                onChange={(e) => {
-                  setSubLocation(e.target.value);
-                  if (errors.subLocation) setErrors((prev) => ({ ...prev, subLocation: undefined }));
-                }}
-                placeholder="e.g. Inbound Lane 2 / Checkpoint Alpha"
-                style={{ width: '100%', maxWidth: 'none', height: '44px' }}
-                aria-invalid={Boolean(errors.subLocation)}
-                aria-describedby={errors.subLocation ? 'error-sublocation' : undefined}
-              />
-              {errors.subLocation && (
-                <div id="error-sublocation" className="np-field-error-msg">
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>
-                  <span>{errors.subLocation}</span>
+                    placeholder="e.g. Sector 4 Interstate Checkpost"
+                    style={{ width: '100%', maxWidth: 'none', height: '44px' }}
+                    aria-invalid={Boolean(errors.location)}
+                    aria-describedby={errors.location ? 'error-location' : undefined}
+                  />
+                  {errors.location && (
+                    <div id="error-location" className="np-field-error-msg">
+                      <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>
+                      <span>{errors.location}</span>
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
+                    <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
+                    {['Sector 4 Interceptor', 'Cargo Depot Lane 2', 'Highway Toll Barrier'].map((preset) => (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => {
+                          setLocation(preset);
+                          if (errors.location) setErrors((prev) => ({ ...prev, location: undefined }));
+                        }}
+                        style={{
+                          border: '1px solid var(--outline-variant)',
+                          backgroundColor: location === preset ? 'var(--surface-container-high)' : 'var(--surface)',
+                          color: location === preset ? 'var(--primary)' : 'var(--on-surface)',
+                          borderRadius: '4px',
+                          padding: '2px 8px',
+                          fontSize: '11px',
+                          fontWeight: location === preset ? 600 : 400,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              )}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
-                <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
-                {['Checkpoint Alpha', 'Inbound Lane 2', 'Inspection Bay 1'].map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => {
-                      setSubLocation(preset);
+
+                {/* Lane / Checkpoint */}
+                <div className="np-form-field">
+                  <label htmlFor="field-sublocation" className="np-form-label">
+                    <span>Lane / Checkpoint <span className="np-form-label-required">*</span></span>
+                  </label>
+                  <input
+                    id="field-sublocation"
+                    type="text"
+                    className={`np-search-input ${errors.subLocation ? 'np-input-error' : ''}`}
+                    value={subLocation}
+                    onChange={(e) => {
+                      setSubLocation(e.target.value);
                       if (errors.subLocation) setErrors((prev) => ({ ...prev, subLocation: undefined }));
                     }}
-                    style={{
-                      border: '1px solid var(--outline-variant)',
-                      backgroundColor: subLocation === preset ? 'var(--surface-container-high)' : 'var(--surface)',
-                      color: subLocation === preset ? 'var(--primary)' : 'var(--on-surface)',
-                      borderRadius: '4px',
-                      padding: '2px 8px',
-                      fontSize: '11px',
-                      fontWeight: subLocation === preset ? 600 : 400,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {preset}
-                  </button>
-                ))}
+                    placeholder="e.g. Inbound Lane 2 / Checkpoint Alpha"
+                    style={{ width: '100%', maxWidth: 'none', height: '44px' }}
+                    aria-invalid={Boolean(errors.subLocation)}
+                    aria-describedby={errors.subLocation ? 'error-sublocation' : undefined}
+                  />
+                  {errors.subLocation && (
+                    <div id="error-sublocation" className="np-field-error-msg">
+                      <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>
+                      <span>{errors.subLocation}</span>
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
+                    <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
+                    {['Checkpoint Alpha', 'Inbound Lane 2', 'Inspection Bay 1'].map((preset) => (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => {
+                          setSubLocation(preset);
+                          if (errors.subLocation) setErrors((prev) => ({ ...prev, subLocation: undefined }));
+                        }}
+                        style={{
+                          border: '1px solid var(--outline-variant)',
+                          backgroundColor: subLocation === preset ? 'var(--surface-container-high)' : 'var(--surface)',
+                          color: subLocation === preset ? 'var(--primary)' : 'var(--on-surface)',
+                          borderRadius: '4px',
+                          padding: '2px 8px',
+                          fontSize: '11px',
+                          fontWeight: subLocation === preset ? 600 : 400,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Specimen / Vehicle Reference (Optional) */}
-          <div className="np-form-field">
-            <label htmlFor="field-specimen" className="np-form-label">
-              <span>Specimen / Vehicle Reference <span style={{ fontWeight: 400, color: 'var(--on-surface-variant)' }}>(Optional)</span></span>
-            </label>
-            <input
-              id="field-specimen"
-              type="text"
-              className="np-search-input"
-              value={suspectIdentifier}
-              onChange={(e) => setSuspectIdentifier(e.target.value)}
-              placeholder="e.g. Vehicle DL-01-AB-1234 / Luggage Bag #4"
-              style={{ width: '100%', maxWidth: 'none', height: '44px' }}
-            />
-            <span className="np-form-hint">
-              Optional identifier for suspect vehicle, parcel, or specimen tag.
-            </span>
-          </div>
+              {/* Specimen / Vehicle Reference (Optional) */}
+              <div className="np-form-field">
+                <label htmlFor="field-specimen" className="np-form-label">
+                  <span>Specimen / Vehicle Reference <span style={{ fontWeight: 400, color: 'var(--on-surface-variant)' }}>(Optional)</span></span>
+                </label>
+                <input
+                  id="field-specimen"
+                  type="text"
+                  className="np-search-input"
+                  value={suspectIdentifier}
+                  onChange={(e) => setSuspectIdentifier(e.target.value)}
+                  placeholder="e.g. Vehicle DL-01-AB-1234 / Luggage Bag #4"
+                  style={{ width: '100%', maxWidth: 'none', height: '44px' }}
+                />
+                <span className="np-form-hint">
+                  Optional identifier for suspect vehicle, parcel, or specimen tag.
+                </span>
+              </div>
 
-          {/* Footer Controls */}
-          <div className="np-wizard-nav-footer">
-            <Link to="/dashboard" className="btn btn-outline np-wizard-btn">
-              Cancel & Exit
-            </Link>
-            <button type="submit" className="btn btn-primary np-wizard-btn">
-              <span>Continue to Test Kit</span>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
-            </button>
-          </div>
-        </form>
-      )}
+              {/* Footer Controls */}
+              <div className="np-wizard-nav-footer">
+                <Link to="/dashboard" className="btn btn-outline np-wizard-btn">
+                  Cancel & Exit
+                </Link>
+                <button type="submit" className="btn btn-primary np-wizard-btn">
+                  <span>Continue to Test Kit</span>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
+                </button>
+              </div>
+            </motion.form>
+          )}
 
-      {/* STEP 2: Reagent Test Kit & Presumptive Outcome */}
-      {step === 2 && (
-        <form onSubmit={handleStep2Continue} className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          {/* STEP 2: Reagent Test Kit & Presumptive Outcome */}
+          {step === 2 && (
+            <motion.form
+              key="step-2"
+              onSubmit={handleStep2Continue}
+              className="np-panel"
+              style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '18px' }}
+              initial={stepInitial}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              exit={stepExit}
+              transition={stepTransition}
+            >
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
             {/* Reagent Kit Type */}
             <div className="np-form-field">
@@ -462,22 +502,33 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
               </span>
             </button>
 
-            {showOptionalNotes && (
-              <div className="np-accordion-body">
-                <label htmlFor="field-notes" className="text-label-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                  Observation Notes (Texture, estimated quantity, field conditions):
-                </label>
-                <textarea
-                  id="field-notes"
-                  className="np-search-input"
-                  rows={3}
-                  placeholder="Record sample color, texture, quantity estimate, or field condition notes..."
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  style={{ width: '100%', maxWidth: 'none', height: 'auto', padding: '10px' }}
-                />
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {showOptionalNotes && (
+                <motion.div
+                  key="notes-body"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={stepTransition}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <div className="np-accordion-body">
+                    <label htmlFor="field-notes" className="text-label-sm" style={{ color: 'var(--on-surface-variant)' }}>
+                      Observation Notes (Texture, estimated quantity, field conditions):
+                    </label>
+                    <textarea
+                      id="field-notes"
+                      className="np-search-input"
+                      rows={3}
+                      placeholder="Record sample color, texture, quantity estimate, or field condition notes..."
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      style={{ width: '100%', maxWidth: 'none', height: 'auto', padding: '10px' }}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Footer Navigation */}
@@ -495,12 +546,20 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
             </button>
           </div>
-        </form>
+        </motion.form>
       )}
 
       {/* STEP 3: Compact Review & Confirm */}
       {step === 3 && (
-        <div className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        <motion.div
+          key="step-3"
+          className="np-panel"
+          style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '18px' }}
+          initial={stepInitial}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={stepExit}
+          transition={stepTransition}
+        >
           <div>
             <h2 className="text-title-md" style={{ color: 'var(--primary)', margin: '0 0 4px' }}>
               Verify Field Record Details
@@ -608,12 +667,19 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
               <span>Confirm & Save Record</span>
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* STEP 4: Saved Confirmation Screen */}
       {step === 4 && savedRecord && (
-        <div className="np-confirmation-card">
+        <motion.div
+          key="step-4"
+          className="np-confirmation-card"
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={stepTransition}
+        >
           <div className="np-confirmation-header">
             <div className="np-confirmation-icon">
               <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>
@@ -721,8 +787,10 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
+    </AnimatePresence>
+  </div>
     </div>
   );
 };

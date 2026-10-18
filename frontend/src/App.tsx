@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { MotionConfig } from 'motion/react';
 import type { OfficerSession, OperationalMetrics, TestRecord } from './types/testRecord';
 import { MOCK_TEST_RECORDS } from './data/mockData';
 import { AppShell } from './components/layout/AppShell';
@@ -99,7 +100,8 @@ export function App() {
   };
 
   return (
-    <BrowserRouter>
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter>
       <Routes>
         {/* Public Entry Routes */}
         <Route path="/" element={<LandingPage session={session} />} />
@@ -188,6 +190,7 @@ export function App() {
         />
       </Routes>
     </BrowserRouter>
+  </MotionConfig>
   );
 }
 

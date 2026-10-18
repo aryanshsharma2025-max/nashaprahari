@@ -1,63 +1,84 @@
 /* ==========================================================================
-   NASHAPRAHARI DESIGN SYSTEM — "Field Operations Core"
-   Institutional Utilitarian Design System for Public Sector Field Drug Testing
+   NASHAPRAHARI DESIGN SYSTEM — Public Service Edition
+   Institutional Design for Police Field Operations (SIH 2026)
+   Palette inspired by Indian government utility applications
    ========================================================================== */
 
 :root {
-  /* Surface System */
-  --surface: #f7f9fc;
-  --surface-dim: #d8dadd;
-  --surface-bright: #f7f9fc;
-  --surface-container-lowest: #ffffff;
-  --surface-container-low: #f2f4f7;
-  --surface-container: #eceef1;
-  --surface-container-high: #e6e8eb;
-  --surface-container-highest: #e0e3e6;
-  --on-surface: #191c1e;
-  --on-surface-variant: #43474d;
-  --inverse-surface: #2d3133;
-  --inverse-on-surface: #eff1f4;
-
-  /* Outlines & Dividers */
-  --outline: #74777e;
-  --outline-variant: #c4c6ce;
-  --border-subtle: #e2e8f0;
-
-  /* Command Navy Palette */
-  --primary: #00162e;
+  /* Primary Institutional Blue */
+  --primary: #145A9E;
+  --primary-dark: #0E3D6E;
+  --primary-light: #E8F0FA;
   --on-primary: #ffffff;
-  --primary-container: #142b45;
-  --on-primary-container: #7d93b2;
-  --tertiary: #051629;
-  --tertiary-container: #1b2b3f;
 
-  /* Operational Teal & Verification Palette */
-  --secondary: #006a63;
+  /* Surface System */
+  --surface: #F5F8FC;
+  --surface-white: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-section: #EEF3FA;
+  --border: #C5D3E8;
+  --border-light: #E0E8F5;
+
+  /* Text */
+  --text-primary: #0D2B4E;
+  --text-secondary: #3A5072;
+  --text-muted: #6A7F99;
+  --text-on-blue: #ffffff;
+
+  /* Semantic Colors */
+  --color-positive: #1B7A45;
+  --color-positive-bg: #EAF7EF;
+  --color-positive-border: #A3D9B8;
+  --color-warning: #B45309;
+  --color-warning-bg: #FEF3C7;
+  --color-warning-border: #F9C74F;
+  --color-error: #B91C1C;
+  --color-error-bg: #FEE2E2;
+  --color-error-border: #FCA5A5;
+  --color-info: #1D4ED8;
+  --color-info-bg: #EFF6FF;
+
+  /* Legacy aliases for components still using var(--secondary) etc. */
+  --secondary: #145A9E;
   --on-secondary: #ffffff;
-  --secondary-container: #99efe5;
-  --on-secondary-container: #006f67;
-  --secondary-fixed-dim: #80d5cb;
+  --on-surface: var(--text-primary);
+  --on-surface-variant: var(--text-secondary);
+  --outline: #8DA0BB;
+  --outline-variant: var(--border);
+  --border-subtle: var(--border-light);
+  --surface-container-lowest: var(--surface-white);
+  --surface-container-low: var(--surface-section);
+  --surface-container: var(--surface-section);
+  --surface-container-high: #dce6f5;
+  --surface-container-highest: #d0dbee;
+  --primary-container: var(--primary);
+  --on-primary-container: var(--on-primary);
+  /* Subtle Indian Public-Service Identity Accents (Restrained, non-decorative) */
+  --accent-saffron: #FF9933;
+  --accent-saffron-deep: #E67300;
+  --accent-green: #138808;
+  --accent-green-deep: #0D6938;
 
-  /* Semantic Alerts */
-  --error: #ba1a1a;
-  --on-error: #ffffff;
-  --error-container: #ffdad6;
-  --on-error-container: #93000a;
+  /* Typography — Includes standard Indian script fallbacks (Devanagari, Nirmala UI) */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', 'Noto Sans', sans-serif;
+  --font-family-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 
-  --warning-bg: #fffbeb;
-  --warning-border: #fde68a;
-  --warning-text: #92400e;
-
-  --success-bg: #ecfdf5;
-  --success-border: #a7f3d0;
-  --success-text: #065f46;
-
-  /* Typography Fonts */
-  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  /* List & Record Typography Tokens */
+  --list-id-size: 13px;
+  --list-id-weight: 600;
+  --list-id-color: var(--primary);
+  --list-title-size: 13.5px;
+  --list-title-weight: 600;
+  --list-title-color: var(--text-primary);
+  --list-sub-size: 12px;
+  --list-sub-weight: 400;
+  --list-sub-color: var(--text-secondary);
+  --list-meta-size: 12px;
+  --list-meta-color: var(--text-muted);
+  --list-sep-color: var(--border);
 }
 
-/* Base Reset & Box Sizing */
+/* Base Reset */
 *,
 *::before,
 *::after {
@@ -71,10 +92,10 @@ body {
   width: 100%;
   min-height: 100vh;
   background-color: var(--surface);
-  color: var(--on-surface);
+  color: var(--text-primary);
   font-family: var(--font-family-base);
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 15px;
+  line-height: 22px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -82,13 +103,10 @@ body {
 #root {
   width: 100%;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
 }
 
-/* Material Symbols & Typography Settings */
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
@@ -105,128 +123,41 @@ body {
   font-feature-settings: 'liga';
 }
 
-/* Tabular Numerals for Operational IDs and Timestamps */
 .font-tabular {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1, 'cv05' 1;
 }
 
 .font-code {
   font-family: var(--font-family-mono);
   font-size: 13px;
-  line-height: 18px;
-  font-weight: 500;
   letter-spacing: -0.01em;
 }
 
-/* Safe area padding utilities for mobile */
-.pt-safe {
-  padding-top: env(safe-area-inset-top, 0px);
-}
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
+/* Typography scale */
+.text-headline-lg { font-size: 28px; line-height: 36px; font-weight: 700; }
+.text-headline-md { font-size: 22px; line-height: 30px; font-weight: 700; }
+.text-headline-sm { font-size: 18px; line-height: 26px; font-weight: 700; }
+.text-title-md    { font-size: 16px; line-height: 24px; font-weight: 600; }
+.text-title-sm    { font-size: 14px; line-height: 20px; font-weight: 600; }
+.text-body-md     { font-size: 14px; line-height: 22px; font-weight: 400; }
+.text-body-sm     { font-size: 12px; line-height: 18px; font-weight: 400; }
+.text-label-md    { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.text-label-sm    { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.05em; }
 
-/* Typography Utility Classes */
-.text-headline-lg {
-  font-size: 32px;
-  line-height: 40px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.text-headline-md {
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.text-headline-sm {
-  font-size: 20px;
-  line-height: 28px;
-  font-weight: 600;
-}
-
-.text-title-md {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 600;
-}
-
-.text-title-sm {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 600;
-}
-
-.text-body-md {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-}
-
-.text-body-sm {
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
-}
-
-.text-label-md {
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.text-label-sm {
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-}
+/* Truncation */
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Animations */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.animate-spin { animation: spin 1s linear infinite; }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--surface-container-low);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--outline-variant);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--outline);
-}
+/* Scrollbars */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

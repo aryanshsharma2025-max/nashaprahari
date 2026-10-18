@@ -1,42 +1,102 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 interface DesktopSidebarProps {
   pendingSyncCount: number;
+  onLogout?: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount }) => {
-  return (
-    <aside className="np-sidebar" aria-label="Console Navigation Sidebar">
-      <div>
-        {/* Brand Header */}
-        <div className="np-sidebar-brand">
-          <div className="np-brand-icon">
-            <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
-              shield
-            </span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className="text-title-md" style={{ color: 'var(--primary)', lineHeight: 1.1, letterSpacing: '-0.02em', fontWeight: 800 }}>
-              NashaPrahari
-            </span>
-            <span className="text-label-sm" style={{ color: 'var(--on-surface-variant)', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Field Operations
-            </span>
-          </div>
-        </div>
+export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
+  pendingSyncCount,
+  onLogout,
+  isOpen = false,
+  onClose,
+}) => {
+  const sidebarRef = useRef<HTMLElement>(null);
 
-        {/* Navigation Items */}
-        <div className="np-sidebar-nav">
-          <span className="np-nav-section-title">Field Operations</span>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+  // Keyboard accessibility: Close menu on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && onClose) {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  return (
+    <>
+      {/* Desktop narrow edge hint — visual cue indicating hover-reveal sidebar on the left */}
+      <div className="np-sidebar-edge-hint" aria-hidden="true" title="Hover here to reveal navigation menu" />
+
+      {/* Backdrop overlay only when explicitly open via keyboard toggle */}
+      {isOpen && (
+        <div
+          className="np-sidebar-backdrop"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        ref={sidebarRef}
+        className={`np-sidebar ${isOpen ? 'np-sidebar-open' : ''}`}
+        aria-label="Application Navigation"
+        aria-hidden={!isOpen ? undefined : false}
+      >
+        <div>
+          {/* Brand header with Close button */}
+          <div className="np-sidebar-brand">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div className="np-brand-icon">
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>shield</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ color: '#fff', fontWeight: 800, fontSize: '15px', lineHeight: 1.1 }}>
+                  NashaPrahari
+                </span>
+                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '11px', marginTop: '1px' }}>
+                  SIH 2026 · Demo
+                </span>
+              </div>
+            </div>
+
+            {/* Keyboard-accessible Close button */}
+            {onClose && (
+              <button
+                type="button"
+                className="np-sidebar-close-btn"
+                onClick={onClose}
+                aria-label="Close navigation menu"
+                title="Close menu (Esc)"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>close</span>
+              </button>
+            )}
+          </div>
+
+          {/* Navigation */}
+          <nav className="np-sidebar-nav" aria-label="Main Navigation">
             <NavLink
               to="/dashboard"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
               end
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>grid_view</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>home</span>
                 <span>Dashboard</span>
               </div>
             </NavLink>
@@ -44,9 +104,10 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             <NavLink
               to="/new-test"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>science</span>
                 <span>New Field Test</span>
               </div>
             </NavLink>
@@ -54,16 +115,18 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             <NavLink
               to="/records"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               <div className="np-nav-item-left">
                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>assignment</span>
-                <span>Records Ledger</span>
+                <span>Records</span>
               </div>
             </NavLink>
 
             <NavLink
               to="/sync-queue"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               <div className="np-nav-item-left">
                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>cloud_upload</span>
@@ -77,6 +140,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             <NavLink
               to="/evidence-locker"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               <div className="np-nav-item-left">
                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>inventory_2</span>
@@ -87,37 +151,54 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             <NavLink
               to="/help-protocols"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleLinkClick}
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>menu_book</span>
-                <span>Field Protocols</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>help_outline</span>
+                <span>Help & Protocols</span>
               </div>
             </NavLink>
           </nav>
         </div>
-      </div>
 
-      {/* Understated Clean Sub-Footer */}
-      <div className="np-sidebar-footer">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-          <span className="badge-demo">Demo Mode</span>
-          <span className="font-code" style={{ fontSize: '11px', color: 'var(--on-surface-variant)' }}>SIH 2026</span>
+        <div className="np-sidebar-footer">
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              style={{
+                background: 'none',
+                border: '1px solid rgba(255,255,255,0.25)',
+                borderRadius: '5px',
+                color: 'rgba(255,255,255,0.85)',
+                cursor: 'pointer',
+                width: '100%',
+                padding: '8px',
+                fontSize: '13px',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                marginBottom: '8px',
+              }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
+              <span>Sign Out</span>
+            </button>
+          )}
+          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>
+            Field Evaluation Prototype
+          </div>
+          <Link
+            to="/"
+            onClick={handleLinkClick}
+            style={{ display: 'block', color: 'rgba(255,255,255,0.6)', fontSize: '11px', textDecoration: 'none', marginTop: '2px' }}
+          >
+            ← Public Portal
+          </Link>
         </div>
-        <Link
-          to="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            color: 'var(--on-surface-variant)',
-            textDecoration: 'none',
-            fontSize: '12px',
-          }}
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>open_in_new</span>
-          <span>View Public Portal</span>
-        </Link>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
