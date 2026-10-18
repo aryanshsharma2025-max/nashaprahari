@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { TestRecord } from '../types/testRecord';
-import { RecentRecordsTable } from '../components/dashboard/RecentRecordsTable';
-import { StatutoryNotice } from '../components/common/StatutoryNotice';
+import type { TestRecord, PresumptiveResult } from '../types/testRecord';
+import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
 
 interface RecordsHistoryPageProps {
@@ -10,40 +9,340 @@ interface RecordsHistoryPageProps {
 }
 
 export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState<'all' | PresumptiveResult | 'pending_sync'>('all');
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
 
+  // Filtered Records based on search query and status filter
+  const filteredRecords = useMemo(() => {
+    return records.filter((rec) => {
+      // Filter tab
+      if (filterType === 'pending_sync' && rec.syncStatus !== 'pending') {
+        return false;
+      }
+      if (filterType !== 'all' && filterType !== 'pending_sync' && rec.result !== filterType) {
+        return false;
+      }
+
+      // Search query across ID, location, vehicle reference, kit type, lot number
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchId = rec.id.toLowerCase().includes(q);
+        const matchLoc = rec.location.toLowerCase().includes(q) || rec.subLocation.toLowerCase().includes(q);
+        const matchKit = rec.testType.toLowerCase().includes(q) || rec.lotNumber.toLowerCase().includes(q);
+        const matchRef = rec.suspectIdentifier ? rec.suspectIdentifier.toLowerCase().includes(q) : false;
+        const matchTamper = rec.chainOfCustody?.tamperBagId ? rec.chainOfCustody.tamperBagId.toLowerCase().includes(q) : false;
+        return matchId || matchLoc || matchKit || matchRef || matchTamper;
+      }
+
+      return true;
+    });
+  }, [records, searchQuery, filterType]);
+
+  // Counts for filter pills
+  const counts = useMemo(() => {
+    return {
+      all: records.length,
+      positive: records.filter((r) => r.result === 'presumptive_positive').length,
+      negative: records.filter((r) => r.result === 'presumptive_negative').length,
+      inconclusive: records.filter((r) => r.result === 'inconclusive').length,
+      pending: records.filter((r) => r.syncStatus === 'pending').length,
+    };
+  }, [records]);
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      {/* Breadcrumb Navigation */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="text-body-sm">
-        <Link to="/" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Dashboard</Link>
+        <Link to="/dashboard" style={{ color: 'var(--secondary)', textDecoration: 'none', fontWeight: 500 }}>
+          Home Dashboard
+        </Link>
         <span style={{ color: 'var(--outline-variant)' }}>/</span>
-        <span style={{ color: 'var(--on-surface-variant)' }}>Test Records & History</span>
+        <span style={{ color: 'var(--on-surface-variant)' }}>Records Ledger</span>
       </div>
 
+      {/* Screen Title & Fast Actions */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 className="text-headline-md" style={{ color: 'var(--primary)' }}>
-            Test Records & History
+          <h1 className="text-headline-md" style={{ color: 'var(--primary)', margin: 0 }}>
+            Field Records Ledger
           </h1>
-          <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            Chronological field screening logs and evidence dispatch ledger
-          </span>
+          <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
+            Search, filter, and inspect verified field testing screening records and custody manifests
+          </p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <span className="badge-demo font-tabular">{records.length} Total Records</span>
-          <Link to="/new-test" className="btn btn-primary btn-sm">
-            + New Test
-          </Link>
+
+        <Link to="/new-test" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add_circle</span>
+          <span>Start New Test</span>
+        </Link>
+      </div>
+
+      {/* Search-First Query Bar & Filter Chips */}
+      <div className="np-panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ position: 'relative', width: '100%' }}>
+          <span
+            className="material-symbols-outlined"
+            style={{
+              position: 'absolute',
+              left: '12px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: 'var(--on-surface-variant)',
+              fontSize: '20px',
+            }}
+          >
+            search
+          </span>
+          <input
+            type="text"
+            className="np-search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by Record ID (e.g. NP-2026-0892), vehicle number, bag serial, or post..."
+            style={{ paddingLeft: '40px', height: '46px', fontSize: '14px' }}
+            aria-label="Search records ledger"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'var(--on-surface-variant)',
+                display: 'flex',
+              }}
+              aria-label="Clear search query"
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>cancel</span>
+            </button>
+          )}
+        </div>
+
+        {/* Filter Chips */}
+        <div className="np-filter-chip-group">
+          <button
+            type="button"
+            className={`np-filter-chip ${filterType === 'all' ? 'active' : ''}`}
+            onClick={() => setFilterType('all')}
+          >
+            <span>All Records</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({counts.all})</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${filterType === 'presumptive_positive' ? 'active' : ''}`}
+            onClick={() => setFilterType('presumptive_positive')}
+          >
+            <span style={{ color: filterType === 'presumptive_positive' ? '#ffffff' : '#b91c1c' }}>●</span>
+            <span>Positive</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({counts.positive})</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${filterType === 'presumptive_negative' ? 'active' : ''}`}
+            onClick={() => setFilterType('presumptive_negative')}
+          >
+            <span style={{ color: filterType === 'presumptive_negative' ? '#ffffff' : '#047857' }}>●</span>
+            <span>Negative</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({counts.negative})</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${filterType === 'inconclusive' ? 'active' : ''}`}
+            onClick={() => setFilterType('inconclusive')}
+          >
+            <span style={{ color: filterType === 'inconclusive' ? '#ffffff' : '#475569' }}>●</span>
+            <span>Inconclusive</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({counts.inconclusive})</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${filterType === 'pending_sync' ? 'active' : ''}`}
+            onClick={() => setFilterType('pending_sync')}
+          >
+            <span style={{ color: filterType === 'pending_sync' ? '#ffffff' : '#d97706' }}>●</span>
+            <span>Pending Upload</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({counts.pending})</span>
+          </button>
         </div>
       </div>
 
-      <StatutoryNotice />
+      {/* Results Count & View Container */}
+      <div className="np-panel">
+        <div className="np-panel-header">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="text-title-sm" style={{ color: 'var(--primary)', fontWeight: 700 }}>
+              Showing {filteredRecords.length} {filteredRecords.length === 1 ? 'Record' : 'Records'}
+            </span>
+            {searchQuery && (
+              <span className="badge-demo">Matching "{searchQuery}"</span>
+            )}
+          </div>
+          <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+            Tap any row to view complete custody envelope
+          </span>
+        </div>
 
-      <RecentRecordsTable
-        records={records}
-        onViewRecord={(rec) => setSelectedRecord(rec)}
-      />
+        {filteredRecords.length === 0 ? (
+          <div style={{ padding: '48px 20px', textAlign: 'center', color: 'var(--on-surface-variant)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '40px', color: 'var(--outline-variant)', marginBottom: '8px', display: 'block' }}>
+              folder_off
+            </span>
+            <strong style={{ display: 'block', color: 'var(--primary)', fontSize: '15px', marginBottom: '4px' }}>
+              No records match your criteria
+            </strong>
+            <p className="text-body-sm" style={{ margin: 0 }}>
+              Try searching with another keyword, clearing your filters, or recording a new test.
+            </p>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={() => {
+                setSearchQuery('');
+                setFilterType('all');
+              }}
+              style={{ marginTop: '14px' }}
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Desktop View: Clear Data Table */}
+            <div className="np-table-container" style={{ display: 'none' }}>
+              <table className="np-table">
+                <thead>
+                  <tr>
+                    <th>Record ID</th>
+                    <th>Date / Time</th>
+                    <th>Location & Lane</th>
+                    <th>Reagent Kit & Lot</th>
+                    <th>Presumptive Result</th>
+                    <th>Sync Status</th>
+                    <th style={{ textAlign: 'right' }}>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredRecords.map((rec) => (
+                    <tr
+                      key={rec.id}
+                      onClick={() => setSelectedRecord(rec)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <td className="font-code" style={{ color: 'var(--primary)', fontWeight: 700 }}>
+                        {rec.id}
+                      </td>
+                      <td className="font-tabular text-body-sm">
+                        {rec.timestamp} <span style={{ color: 'var(--on-surface-variant)' }}>({rec.date})</span>
+                      </td>
+                      <td className="text-body-sm">
+                        <strong>{rec.location}</strong>
+                        <div style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>{rec.subLocation}</div>
+                      </td>
+                      <td className="text-body-sm">
+                        <div>{rec.testType}</div>
+                        <div className="font-code" style={{ fontSize: '11px', color: 'var(--on-surface-variant)' }}>{rec.lotNumber}</div>
+                      </td>
+                      <td>
+                        <StatusBadge type="result" result={rec.result} />
+                      </td>
+                      <td>
+                        <StatusBadge type="sync" status={rec.syncStatus} />
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <button
+                          type="button"
+                          className="btn btn-outline btn-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedRecord(rec);
+                          }}
+                        >
+                          <span>Inspect</span>
+                          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>open_in_new</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
+            {/* Responsive Card Stream (Mobile & Tablet) */}
+            <div className="np-short-records-list">
+              {filteredRecords.map((rec) => (
+                <div
+                  key={rec.id}
+                  className="np-short-record-row"
+                  onClick={() => setSelectedRecord(rec)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedRecord(rec);
+                    }
+                  }}
+                  aria-label={`View record ${rec.id}`}
+                >
+                  <div className="np-short-record-left">
+                    <div className="np-short-record-icon">
+                      <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                        biotech
+                      </span>
+                    </div>
+                    <div className="np-short-record-info">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <span className="np-record-id">{rec.id}</span>
+                        <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
+                          · {rec.timestamp}
+                        </span>
+                        {rec.chainOfCustody?.tamperBagId && (
+                          <span className="badge-demo font-code" style={{ fontSize: '10px' }}>
+                            {rec.chainOfCustody.tamperBagId}
+                          </span>
+                        )}
+                      </div>
+                      <div className="np-short-record-sub">
+                        <span>{rec.location}</span>
+                        <span>·</span>
+                        <span style={{ color: 'var(--on-surface)' }}>{rec.testType}</span>
+                        {rec.suspectIdentifier && (
+                          <>
+                            <span>·</span>
+                            <span style={{ color: 'var(--primary)', fontStyle: 'italic' }}>{rec.suspectIdentifier}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="np-short-record-right">
+                    <div className="np-short-record-badges">
+                      <StatusBadge type="result" result={rec.result} />
+                      <StatusBadge type="sync" status={rec.syncStatus} />
+                    </div>
+                    <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Record Inspection Modal */}
       <RecordDetailModal
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}

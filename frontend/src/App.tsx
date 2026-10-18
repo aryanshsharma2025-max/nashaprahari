@@ -1,8 +1,11 @@
 import { useState, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import type { OfficerSession, OperationalMetrics, TestRecord } from './types/testRecord';
-import { MOCK_OFFICER_SESSION, MOCK_TEST_RECORDS } from './data/mockData';
+import { MOCK_TEST_RECORDS } from './data/mockData';
 import { AppShell } from './components/layout/AppShell';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { NewTestPage } from './pages/NewTestPage';
 import { RecordsHistoryPage } from './pages/RecordsHistoryPage';
@@ -13,7 +16,20 @@ import './App.css';
 
 export function App() {
   const [records, setRecords] = useState<TestRecord[]>(MOCK_TEST_RECORDS);
-  const [session] = useState<OfficerSession>(MOCK_OFFICER_SESSION);
+
+  // Officer Session State: Defaults to null (requiring login), or loads persisted session
+  const [session, setSession] = useState<OfficerSession | null>(() => {
+    try {
+      const stored = sessionStorage.getItem('np_officer_session');
+      if (stored) {
+        return JSON.parse(stored) as OfficerSession;
+      }
+    } catch (e) {
+      console.warn('Failed to parse officer session from sessionStorage', e);
+    }
+    return null;
+  });
+
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncNotification, setSyncNotification] = useState<string | null>(null);
 
@@ -32,6 +48,28 @@ export function App() {
       activeLot: 'Lot #NP-9042',
     };
   }, [records]);
+
+  // Session Login Handler
+  const handleLogin = (newSession: OfficerSession) => {
+    setSession(newSession);
+    try {
+      sessionStorage.setItem('np_officer_session', JSON.stringify(newSession));
+    } catch (e) {
+      console.warn('Failed to persist session to sessionStorage', e);
+    }
+    setSyncNotification(`Terminal session active: ${newSession.officerName} (${newSession.officerBadge})`);
+  };
+
+  // Session Logout Handler
+  const handleLogout = () => {
+    setSession(null);
+    try {
+      sessionStorage.removeItem('np_officer_session');
+    } catch (e) {
+      console.warn('Failed to clear session from sessionStorage', e);
+    }
+    setSyncNotification('Officer session ended successfully.');
+  };
 
   // Meaningful manual sync action with transparent simulation feedback
   const handleSync = () => {
@@ -63,23 +101,44 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Entry Routes */}
+        <Route path="/" element={<LandingPage session={session} />} />
+        <Route
+          path="/login"
+          element={
+            <LoginPage
+              session={session}
+              onLogin={handleLogin}
+              onLogout={handleLogout}
+            />
+          }
+        />
+
+        {/* Protected Officer Application Routes */}
         <Route
           element={
-            <AppShell
-              session={session}
-              pendingSyncCount={metrics.pendingCount}
-              onSync={handleSync}
-              isSyncing={isSyncing}
-              syncNotification={syncNotification}
-              onDismissNotification={() => setSyncNotification(null)}
-            />
+            <ProtectedRoute session={session}>
+              {session ? (
+                <AppShell
+                  session={session}
+                  pendingSyncCount={metrics.pendingCount}
+                  onSync={handleSync}
+                  isSyncing={isSyncing}
+                  syncNotification={syncNotification}
+                  onDismissNotification={() => setSyncNotification(null)}
+                  onLogout={handleLogout}
+                />
+              ) : (
+                <Navigate to="/login" replace />
+              )}
+            </ProtectedRoute>
           }
         >
           <Route
-            index
+            path="dashboard"
             element={
               <DashboardPage
-                session={session}
+                session={session!}
                 metrics={metrics}
                 records={records}
                 onSync={handleSync}
@@ -91,7 +150,7 @@ export function App() {
             path="new-test"
             element={
               <NewTestPage
-                session={session}
+                session={session!}
                 onAddRecord={handleAddRecord}
               />
             }
@@ -118,8 +177,15 @@ export function App() {
             path="help-protocols"
             element={<HelpProtocolsPage />}
           />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Fallback Catch-all Route */}
+        <Route
+          path="*"
+          element={
+            session ? <Navigate to="/dashboard" replace /> : <Navigate to="/" replace />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -1,88 +1,172 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StatutoryNotice } from '../components/common/StatutoryNotice';
 
 export const HelpProtocolsPage: React.FC = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '960px', margin: '0 auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '900px', margin: '0 auto' }}>
+      {/* Breadcrumb Navigation */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="text-body-sm">
-        <Link to="/" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Dashboard</Link>
+        <Link to="/dashboard" style={{ color: 'var(--secondary)', textDecoration: 'none', fontWeight: 500 }}>
+          Home Dashboard
+        </Link>
         <span style={{ color: 'var(--outline-variant)' }}>/</span>
         <span style={{ color: 'var(--on-surface-variant)' }}>Help & Protocols</span>
       </div>
 
+      {/* Screen Title */}
       <div>
-        <h1 className="text-headline-md" style={{ color: 'var(--primary)' }}>
-          Help & Field Protocols
+        <h1 className="text-headline-md" style={{ color: 'var(--primary)', margin: 0 }}>
+          Field Protocols & Safety SOPs
         </h1>
-        <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-          Standard Operating Procedures (SOP v2.4), laboratory helpline, and calibration manuals
-        </span>
-      </div>
-
-      <StatutoryNotice />
-
-      {/* Emergency Contact & Laboratory Hotline */}
-      <div className="np-panel" style={{ padding: '20px', borderLeft: '4px solid var(--secondary)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '24px', color: 'var(--secondary)' }}>
-            phone_in_talk
-          </span>
-          <h2 className="text-title-md" style={{ color: 'var(--primary)' }}>
-            Central Forensic Laboratory Helpline
-          </h2>
-        </div>
-        <p className="text-body-md" style={{ color: 'var(--on-surface-variant)', marginBottom: '14px' }}>
-          Direct toll-free escalation for field narcotics detection officers, chain of custody verification, and fast-track GC-MS confirmation dispatch.
+        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
+          Standard field reference instructions for chemical reagent testing, evidence sealing, and officer safety
         </p>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <a href="tel:1800200889" className="btn btn-teal">
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>call</span>
-            <span>Dial Helpline: 1800-200-889</span>
-          </a>
-          <div style={{ padding: '8px 12px', background: 'var(--surface-container-low)', borderRadius: '4px' }}>
-            <span className="text-body-sm font-code">Zonal Toxicology Lab: +91-11-2680-4920</span>
-          </div>
-        </div>
       </div>
 
-      {/* SOP 1: Evidence Handling */}
-      <div className="np-panel" style={{ padding: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '22px', color: 'var(--primary)' }}>
-            verified_user
+      {/* Demonstration Content Notice */}
+      <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--secondary)' }}>
+            info
           </span>
+          <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
+            Demonstration Reference Guide
+          </strong>
+          <span className="badge-demo">Reference Standard</span>
+        </div>
+        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
+          This reference manual reflects standard presumptive field testing procedures compiled for Smart India Hackathon evaluation. During live field operations, officers must strictly follow official State Police Manuals and NDPS statutory circulars.
+        </p>
+      </div>
+
+      {/* Protocol 1: Chemical Reagent Testing Procedure */}
+      <div className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="np-capability-icon-wrap icon-blue">
+            <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
+              science
+            </span>
+          </div>
           <div>
-            <h2 className="text-title-md">SOP-SEC-04: Evidence Handling & Tamper Sealing</h2>
-            <span className="text-label-sm" style={{ color: 'var(--on-surface-variant)' }}>Mandatory Field Protocol under NDPS Act Standards</span>
+            <h2 className="text-title-md" style={{ color: 'var(--primary)', margin: 0 }}>
+              1. Chemical Reagent Testing Protocol
+            </h2>
+            <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+              Sampling, Ampoule Crushing & Reaction Observation
+            </span>
           </div>
         </div>
-        <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--on-surface-variant)' }} className="text-body-md">
-          <li><strong>Gloves & Safety:</strong> Nitrile gloves must be worn before opening any field chemical kit or handling suspect substances.</li>
-          <li><strong>Sample Dosage:</strong> Take only 10–20 milligrams of powder or 1 drop of liquid. Overloading causes false-negative or dark precipitation artifacts.</li>
-          <li><strong>Sealing:</strong> Once testing is concluded, immediately place the ampoule pouch inside a serialized tamper-evident envelope.</li>
-          <li><strong>Officer Endorsement:</strong> Sign across the security seal tape with date, time, and case identifier.</li>
-          <li><strong>Chain of Custody:</strong> Every transfer between field officers, zonal vault, and the laboratory must be logged in the electronic custody register.</li>
+
+        <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--on-surface)', lineHeight: 1.5 }} className="text-body-md">
+          <li>
+            <strong>Sample Dosage:</strong> Place only 10–20 milligrams of powder (approx. tip of a micro-spatula) or 1 drop of liquid into the test ampoule pouch. Overloading the sample causes dark charring or ambiguous false-negative masks.
+          </li>
+          <li>
+            <strong>Sequential Crushing:</strong> Break the glass reagent ampoules in strict alphabetical sequence (Ampoule 1 first, agitate gently, then Ampoule 2).
+          </li>
+          <li>
+            <strong>Observation Window:</strong> Evaluate the resulting color precipitate between 30 and 60 seconds after agitation under clean white lighting. Color changes occurring after 2 minutes are atmospheric oxidation artifacts and must not be recorded as positive.
+          </li>
+          <li>
+            <strong>Retest Protocol:</strong> If the reaction color is muddy, ambiguous, or unlisted in the kit chart, record as <em>Inconclusive / Retest</em> and repeat testing using a secondary kit from an alternate lot.
+          </li>
         </ul>
       </div>
 
-      {/* SOP 2: Reagent Kit Calibration */}
-      <div className="np-panel" style={{ padding: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '22px', color: 'var(--primary)' }}>
-            fact_check
-          </span>
+      {/* Protocol 2: Tamper-Evident Bag Sealing & Custody */}
+      <div className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="np-capability-icon-wrap icon-teal">
+            <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
+              inventory_2
+            </span>
+          </div>
           <div>
-            <h2 className="text-title-md">QC-CAL-12: Kit Quality Control & Expiry Checks</h2>
-            <span className="text-label-sm" style={{ color: 'var(--on-surface-variant)' }}>Field Reagent Integrity Standards</span>
+            <h2 className="text-title-md" style={{ color: 'var(--primary)', margin: 0 }}>
+              2. Tamper-Evident Bag Sealing & Custody Handover
+            </h2>
+            <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+              Physical Evidence Integrity & Judicial Admissibility
+            </span>
           </div>
         </div>
-        <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--on-surface-variant)' }} className="text-body-md">
-          <li><strong>Lot Verification:</strong> Check that the active lot number (e.g. <code>#NP-9042</code>) matches the serial batch on the carton.</li>
-          <li><strong>Storage Environment:</strong> Chemical test tubes must remain below 30°C in the thermal field case. Do not leave kits exposed to windshield solar radiation.</li>
-          <li><strong>Pre-Shift Blank Check:</strong> Run one negative control ampoule with distilled water at the start of each duty shift to verify reagent baseline integrity.</li>
-          <li><strong>Inconclusive Disposal:</strong> Any ampoule exhibiting spontaneous discoloration prior to breaking the glass seal must be flagged as contaminated and discarded.</li>
+
+        <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--on-surface)', lineHeight: 1.5 }} className="text-body-md">
+          <li>
+            <strong>Immediate Packaging:</strong> Immediately upon test conclusion, place the spent chemical tube and the seized contraband specimen package inside a serialized tamper-evident envelope.
+          </li>
+          <li>
+            <strong>Seal Verification:</strong> Peel the adhesive backing and press firmly across the void-evident indicator. Ensure the serial bag number (e.g. <code>TB-2026-XXXX</code>) is logged into NashaPrahari.
+          </li>
+          <li>
+            <strong>Dual Officer Endorsement:</strong> The operating officer and witnessing supervisor must sign and date directly across the tape boundary with indelible marker.
+          </li>
+          <li>
+            <strong>Vault Staging:</strong> Deposit the sealed envelope in the station evidence vault until courier dispatch to the authorized Forensic Science Laboratory (FSL).
+          </li>
         </ul>
+      </div>
+
+      {/* Protocol 3: Officer Safety & Spill Containment */}
+      <div className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="np-capability-icon-wrap icon-amber">
+            <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
+              health_and_safety
+            </span>
+          </div>
+          <div>
+            <h2 className="text-title-md" style={{ color: 'var(--primary)', margin: 0 }}>
+              3. Officer Safety & Chemical First Aid
+            </h2>
+            <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+              Handling Corrosive Reagents & Unknown Substance Precautions
+            </span>
+          </div>
+        </div>
+
+        <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--on-surface)', lineHeight: 1.5 }} className="text-body-md">
+          <li>
+            <strong>Mandatory PPE:</strong> Nitrile examination gloves must be worn throughout sampling. Reagent ampoules contain strong mineral acids (concentrated hydrochloric and sulfuric acids).
+          </li>
+          <li>
+            <strong>Never Inhale Fumes:</strong> Do not smell or taste unknown suspected narcotics under any operational circumstance. Keep tube opening angled away from face when breaking ampoules.
+          </li>
+          <li>
+            <strong>Skin Contact Protocol:</strong> In event of pouch puncture or acid spill, flush affected skin immediately with copious cold water for a minimum of 15 minutes.
+          </li>
+          <li>
+            <strong>Defective Kit Quarantine:</strong> Any ampoule exhibiting spontaneous discoloration or leakage prior to breaking must be quarantined, flagged as expired/compromised, and discarded per hazardous chemical disposal guidelines.
+          </li>
+        </ul>
+      </div>
+
+      {/* Protocol 4: Legal & Statutory Framework */}
+      <div className="np-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="np-capability-icon-wrap icon-purple">
+            <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
+              policy
+            </span>
+          </div>
+          <div>
+            <h2 className="text-title-md" style={{ color: 'var(--primary)', margin: 0 }}>
+              4. Statutory Framework (Section 50 NDPS Act)
+            </h2>
+            <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+              Presumptive Field Screening vs. Confirmatory Prosecution
+            </span>
+          </div>
+        </div>
+
+        <div style={{ color: 'var(--on-surface)', lineHeight: 1.5 }} className="text-body-md">
+          <p style={{ margin: '0 0 10px' }}>
+            Under the <em>Narcotic Drugs and Psychotropic Substances (NDPS) Act, 1985</em>, field reagent tests serve exclusively as <strong>presumptive preliminary screening</strong> to substantiate reasonable ground for seizure and formal arrest.
+          </p>
+          <p style={{ margin: 0 }}>
+            Presumptive test results are not a legal substitute for confirmatory laboratory spectroscopy. Formal court prosecution requires quantitative confirmatory reports (GC-MS / HPLC) issued by a government-notified Forensic Science Laboratory (FSL).
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -122,6 +122,61 @@ inspected.
     reason.
 -   Make loading, empty, error, disabled, and success states explicit.
 
+------------------------------------------------------------------------
+
+## Anti-Patterns: Avoid Generic AI-Generated UI
+
+NashaPrahari must not use the following as default design choices:
+
+1. Harsh or decorative gradients.
+2. Unnecessary Lucide icons or icon-heavy interfaces.
+3. Pure white backgrounds everywhere without meaningful visual hierarchy.
+4. Rainbow or inconsistent color palettes.
+5. Excessive decorative drop shadows.
+6. Repetitive three-feature-card layouts.
+7. Emojis as interface decoration or substitutes for professional icons.
+8. Glassmorphism or liquid-glass effects.
+9. Excessive em dashes in user-facing copy.
+10. Generic Inter, Geist, or Space Grotesk typography chosen without a design reason.
+11. Decorative colored left-border stripes on every card.
+12. Fake testimonials or fabricated trust signals.
+13. Bento grids used merely because they are trendy.
+14. Fake terminal windows or developer-themed decorations.
+15. Empty marketing slogans and formulaic copy such as Its not X, its Y.
+16. Repetitive checkmark bullets.
+17. Unnecessary pricing-tier layouts.
+18. Fake product demonstrations or simulated functionality presented as real.
+19. Excessively rounded cards and controls.
+20. Purple-and-black styling used as a generic AI aesthetic.
+21. Skeleton loaders when they are unnecessary or inconsistent with actual loading behavior.
+22. Decorative radial orbs.
+23. Decorative dot grids.
+24. Sparkle icons used to signal AI or sophistication without a real purpose.
+25. Unnecessary animated arrows.
+26. Missing required Terms of Service or equivalent legal information.
+27. Missing required privacy information or a privacy policy where applicable.
+28. Unnecessary hover animations.
+29. Neon colors without a functional reason.
+30. Generic pastel palettes without a deliberate product-specific design rationale.
+
+## Required design direction
+
+NashaPrahari is a practical field-operations application for police officers and government officials, not a generic AI SaaS landing page.
+
+- Prioritize task completion, clarity, speed, readability, accessibility, and data integrity.
+- Use a restrained, consistent color system appropriate for public-sector field operations.
+- Prefer simple layouts, clear labels, practical forms, and obvious primary actions.
+- Use decorative elements only when they improve comprehension or usability.
+- Keep the home screen focused on New Field Test, Find a Record, Pending Uploads, and Help & Protocols.
+- Make mobile field use a first-class requirement.
+- Do not sacrifice accessibility or touch usability merely to avoid rounded corners, icons, shadows, or other items in the list.
+- Never fabricate operational data, testimonials, security claims, laboratory confirmation, or successful synchronization.
+- Follow the approved NashaPrahari design references and existing project documentation.
+
+Before introducing a new visual pattern, ask whether it helps the officer complete a real task. If it does not, leave it out.
+
+------------------------------------------------------------------------
+
 ## 4. Agent roles and delegation
 
 When multi-agent tools are available, delegate bounded tasks with clear

@@ -1,87 +1,232 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
-import { StatutoryNotice } from '../components/common/StatutoryNotice';
+import { RecordDetailModal } from '../components/common/RecordDetailModal';
 
 interface EvidenceLockerPageProps {
   records: TestRecord[];
 }
 
 export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records }) => {
-  const custodyRecords = records.filter((r) => r.chainOfCustody);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'queued' | 'dispatched'>('all');
+  const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
+
+  // Evidence parcels with chain of custody
+  const custodyRecords = useMemo(() => {
+    return records.filter((r) => r.chainOfCustody);
+  }, [records]);
+
+  // Filtered parcels
+  const filteredParcels = useMemo(() => {
+    return custodyRecords.filter((rec) => {
+      const dispatch = rec.chainOfCustody?.dispatchStatus.toLowerCase() || '';
+
+      if (statusFilter === 'queued' && !dispatch.includes('vault') && !dispatch.includes('queued')) {
+        return false;
+      }
+      if (statusFilter === 'dispatched' && !dispatch.includes('dispatch') && !dispatch.includes('transit')) {
+        return false;
+      }
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchBag = rec.chainOfCustody?.tamperBagId.toLowerCase().includes(q) || false;
+        const matchCase = rec.id.toLowerCase().includes(q);
+        const matchOfficer = rec.officerName.toLowerCase().includes(q);
+        const matchLoc = rec.location.toLowerCase().includes(q);
+        return matchBag || matchCase || matchOfficer || matchLoc;
+      }
+
+      return true;
+    });
+  }, [custodyRecords, searchQuery, statusFilter]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      {/* Breadcrumb Navigation */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="text-body-sm">
-        <Link to="/" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Dashboard</Link>
+        <Link to="/dashboard" style={{ color: 'var(--secondary)', textDecoration: 'none', fontWeight: 500 }}>
+          Home Dashboard
+        </Link>
         <span style={{ color: 'var(--outline-variant)' }}>/</span>
         <span style={{ color: 'var(--on-surface-variant)' }}>Evidence Locker</span>
       </div>
 
+      {/* Screen Title */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 className="text-headline-md" style={{ color: 'var(--primary)' }}>
-            Evidence Locker & Chain of Custody
+          <h1 className="text-headline-md" style={{ color: 'var(--primary)', margin: 0 }}>
+            Evidence Locker & Custody Registry
           </h1>
-          <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            Tamper-proof physical evidence bag registry & dispatch status
-          </span>
+          <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
+            Physical evidence parcel tracking and tamper-evident seal registry (Section 50 NDPS Act)
+          </p>
         </div>
-        <span className="badge-demo font-tabular">{custodyRecords.length} Sealed Parcels</span>
+
+        <span className="badge-demo font-tabular font-code" style={{ padding: '6px 12px', fontSize: '12px' }}>
+          {custodyRecords.length} Sealed Envelopes
+        </span>
       </div>
 
-      <StatutoryNotice />
-
-      {/* Honest Scope Limit Notice */}
-      <div style={{ padding: '12px 16px', background: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '6px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>verified_user</span>
-          <span className="text-title-sm" style={{ color: 'var(--primary)' }}>Chain of Custody Protocol (Demonstration Registry)</span>
+      {/* Honest Physical Protocol Notice */}
+      <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--primary)' }}>
+            verified_user
+          </span>
+          <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
+            Chain of Custody Standard Protocol
+          </strong>
+          <span className="badge-demo">NDPS Procedures</span>
         </div>
-        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', lineHeight: 1.5 }}>
-          Sealed tamper bags require dual-officer endorsement before laboratory handover under NDPS compliance. In Phase 1, parcel identifiers are stored in the local operational log. Smart biometric vault and laboratory dispatch manifests are scheduled for subsequent phases.
+        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
+          Sealed tamper envelopes require dual-officer endorsement prior to formal handover for confirmatory GC-MS laboratory analysis. This demonstration registry records serial bag identifiers and staging status in the field vault.
         </p>
       </div>
 
-      <div className="np-panel">
-        <div className="np-panel-header">
-          <h2 className="text-title-md">Logged Tamper Envelopes</h2>
-          <span className="badge-demo">Shift Custody Ledger</span>
+      {/* Search & Filter Bar */}
+      <div className="np-panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ position: 'relative', width: '100%' }}>
+          <span
+            className="material-symbols-outlined"
+            style={{
+              position: 'absolute',
+              left: '12px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: 'var(--on-surface-variant)',
+              fontSize: '20px',
+            }}
+          >
+            search
+          </span>
+          <input
+            type="text"
+            className="np-search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by Tamper Bag Serial (e.g. TB-0892) or Case ID..."
+            style={{ paddingLeft: '40px', height: '46px', fontSize: '14px' }}
+            aria-label="Search evidence registry"
+          />
         </div>
-        <div className="np-table-container">
-          <table className="np-table">
-            <thead>
-              <tr>
-                <th>Tamper Bag ID</th>
-                <th>Test Case ID</th>
-                <th>Sealed At</th>
-                <th>Presumptive Result</th>
-                <th>Vault Status</th>
-                <th>Custody Officer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {custodyRecords.map((r) => (
-                <tr key={r.id}>
-                  <td className="font-code" style={{ color: 'var(--primary)', fontWeight: 700 }}>
-                    {r.chainOfCustody?.tamperBagId}
-                  </td>
-                  <td className="font-code text-body-sm">{r.id}</td>
-                  <td className="font-tabular text-body-sm">{r.chainOfCustody?.sealedAt}</td>
-                  <td>
-                    <StatusBadge type="result" result={r.result} />
-                  </td>
-                  <td>
-                    <span className="badge badge-synced font-tabular">{r.chainOfCustody?.dispatchStatus}</span>
-                  </td>
-                  <td className="text-body-sm">{r.chainOfCustody?.custodyOfficer}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        {/* Filter Pills */}
+        <div className="np-filter-chip-group">
+          <button
+            type="button"
+            className={`np-filter-chip ${statusFilter === 'all' ? 'active' : ''}`}
+            onClick={() => setStatusFilter('all')}
+          >
+            <span>All Parcels</span>
+            <span className="font-tabular font-code" style={{ fontSize: '11px', opacity: 0.85 }}>({custodyRecords.length})</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${statusFilter === 'queued' ? 'active' : ''}`}
+            onClick={() => setStatusFilter('queued')}
+          >
+            <span>Queued in Field Vault</span>
+          </button>
+
+          <button
+            type="button"
+            className={`np-filter-chip ${statusFilter === 'dispatched' ? 'active' : ''}`}
+            onClick={() => setStatusFilter('dispatched')}
+          >
+            <span>In Transit / Dispatched</span>
+          </button>
         </div>
       </div>
+
+      {/* Parcels List */}
+      <div className="np-panel">
+        <div className="np-panel-header">
+          <span className="text-title-sm" style={{ color: 'var(--primary)', fontWeight: 700 }}>
+            Logged Tamper Envelopes ({filteredParcels.length})
+          </span>
+          <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+            Tap parcel to inspect chain-of-custody log
+          </span>
+        </div>
+
+        {filteredParcels.length === 0 ? (
+          <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--on-surface-variant)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '36px', color: 'var(--outline-variant)', display: 'block', margin: '0 auto 8px' }}>
+              inventory_2
+            </span>
+            <strong style={{ color: 'var(--primary)', display: 'block', fontSize: '15px' }}>
+              No Sealed Envelopes Found
+            </strong>
+            <p className="text-body-sm" style={{ margin: '4px 0 0' }}>
+              No evidence parcels match your current search or filter query.
+            </p>
+          </div>
+        ) : (
+          <div className="np-short-records-list">
+            {filteredParcels.map((rec) => (
+              <div
+                key={rec.id}
+                className="np-short-record-row"
+                onClick={() => setSelectedRecord(rec)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedRecord(rec);
+                  }
+                }}
+              >
+                <div className="np-short-record-left">
+                  <div className="np-short-record-icon" style={{ backgroundColor: '#f1f5f9', color: 'var(--primary)' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                      lock
+                    </span>
+                  </div>
+                  <div className="np-short-record-info">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span className="np-record-id" style={{ color: 'var(--primary)', fontWeight: 800 }}>
+                        {rec.chainOfCustody?.tamperBagId}
+                      </span>
+                      <span className="text-body-sm font-code" style={{ color: 'var(--on-surface-variant)' }}>
+                        Case: {rec.id}
+                      </span>
+                      <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>
+                        · Sealed at {rec.chainOfCustody?.sealedAt}
+                      </span>
+                    </div>
+                    <div className="np-short-record-sub">
+                      <span>Officer: {rec.chainOfCustody?.custodyOfficer}</span>
+                      <span>·</span>
+                      <span>{rec.location}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="np-short-record-right">
+                  <div className="np-short-record-badges">
+                    <StatusBadge type="result" result={rec.result} />
+                    <span className="badge badge-demo font-tabular">
+                      {rec.chainOfCustody?.dispatchStatus}
+                    </span>
+                  </div>
+                  <span className="material-symbols-outlined np-record-chevron">chevron_right</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Record Inspection Modal */}
+      <RecordDetailModal
+        record={selectedRecord}
+        onClose={() => setSelectedRecord(null)}
+      />
     </div>
   );
 };

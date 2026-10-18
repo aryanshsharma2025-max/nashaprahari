@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import type { OfficerSession, OperationalMetrics, TestRecord } from '../types/testRecord';
-import { OfficerHero } from '../components/dashboard/OfficerHero';
-import { MetricCards } from '../components/dashboard/MetricCards';
-import { StatutoryNotice } from '../components/common/StatutoryNotice';
-import { RecentRecordsTable } from '../components/dashboard/RecentRecordsTable';
-import { TerminalStatusCard } from '../components/dashboard/TerminalStatusCard';
-import { ProtocolsCard } from '../components/dashboard/ProtocolsCard';
+import { OfficerStatusHeader } from '../components/dashboard/OfficerStatusHeader';
+import { HomeActionCards } from '../components/dashboard/HomeActionCards';
+import { RecentRecordsShortList } from '../components/dashboard/RecentRecordsShortList';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
 
 interface DashboardPageProps {
@@ -26,45 +23,32 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [selectedRecord, setSelectedRecord] = useState<TestRecord | null>(null);
 
   return (
-    <>
-      {/* Officer Command & Shift Bar / Mobile Hero */}
-      <OfficerHero
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* 1. Officer Context & Essential Connectivity */}
+      <OfficerStatusHeader
         session={session}
         pendingSyncCount={metrics.pendingCount}
         onSync={onSync}
         isSyncing={isSyncing}
       />
 
-      {/* Mandatory Statutory Presumptive Legal Notice */}
-      <StatutoryNotice icon="biotech" />
+      {/* 2. Four Main Duty Actions (Dominant New Field Test + 3 Utility Tiles) */}
+      <HomeActionCards
+        pendingSyncCount={metrics.pendingCount}
+        totalRecordsCount={records.length}
+      />
 
-      {/* 4 Summary Operational Metric Cards */}
-      <MetricCards metrics={metrics} />
+      {/* 4. Short Recent-Records List */}
+      <RecentRecordsShortList
+        records={records}
+        onViewRecord={(rec) => setSelectedRecord(rec)}
+        maxItems={4}
+      />
 
-      {/* Two-Column Responsive Content Grid (8 cols records, 4 cols widgets) */}
-      <div className="np-dashboard-body">
-        {/* Left Column: Recent Records (Table on Desktop, Cards on Mobile) */}
-        <div>
-          <RecentRecordsTable
-            records={records}
-            onViewRecord={(rec) => setSelectedRecord(rec)}
-          />
-        </div>
-
-        {/* Right Column: Terminal Status & Field SOP Protocols */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <TerminalStatusCard
-            session={session}
-            pendingSyncCount={metrics.pendingCount}
-          />
-          <ProtocolsCard />
-        </div>
-      </div>
-
-      {/* Sub-Footer Utilitarian Metadata */}
+      {/* 5. Minimal Sub-Footer Session Disclaimers */}
       <footer
         style={{
-          marginTop: '16px',
+          marginTop: '8px',
           paddingTop: '16px',
           borderTop: '1px solid var(--border-subtle)',
           display: 'flex',
@@ -78,12 +62,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--outline)' }}></span>
-          <span>Demonstration Environment — Sample Operational Records Only</span>
+          <span>Field Demonstration Environment — Sample Records Only (SIH 2026)</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="font-code">
-          <span>Terminal Session: {session.terminalSessionId}</span>
+          <span>Terminal: {session.terminalSessionId}</span>
           <span style={{ color: 'var(--outline-variant)' }}>|</span>
-          <span>Version: {session.appVersion}</span>
+          <span>App: v{session.appVersion}</span>
         </div>
       </footer>
 
@@ -92,6 +76,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}
       />
-    </>
+    </div>
   );
 };
+

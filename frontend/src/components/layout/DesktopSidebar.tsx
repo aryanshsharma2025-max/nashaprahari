@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 interface DesktopSidebarProps {
   pendingSyncCount: number;
@@ -17,21 +17,21 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             </span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className="text-title-md" style={{ color: 'var(--primary)', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+            <span className="text-title-md" style={{ color: 'var(--primary)', lineHeight: 1.1, letterSpacing: '-0.02em', fontWeight: 800 }}>
               NashaPrahari
             </span>
             <span className="text-label-sm" style={{ color: 'var(--on-surface-variant)', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Field Ops & Evidence
+              Field Operations
             </span>
           </div>
         </div>
 
         {/* Navigation Items */}
         <div className="np-sidebar-nav">
-          <span className="np-nav-section-title">Console Navigation</span>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <span className="np-nav-section-title">Field Operations</span>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
             <NavLink
-              to="/"
+              to="/dashboard"
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
               end
             >
@@ -46,8 +46,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>biotech</span>
-                <span>New Test Workflow</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
+                <span>New Field Test</span>
               </div>
             </NavLink>
 
@@ -56,8 +56,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>history_edu</span>
-                <span>Test Records & History</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>assignment</span>
+                <span>Records Ledger</span>
               </div>
             </NavLink>
 
@@ -66,8 +66,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
               className={({ isActive }) => `np-nav-item ${isActive ? 'active' : ''}`}
             >
               <div className="np-nav-item-left">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>sync_alt</span>
-                <span>Sync Queue</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>cloud_upload</span>
+                <span>Pending Uploads</span>
               </div>
               {pendingSyncCount > 0 && (
                 <span className="np-nav-pill font-tabular">{pendingSyncCount}</span>
@@ -90,29 +90,33 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ pendingSyncCount
             >
               <div className="np-nav-item-left">
                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>menu_book</span>
-                <span>Help & Protocols</span>
+                <span>Field Protocols</span>
               </div>
             </NavLink>
           </nav>
         </div>
       </div>
 
-      {/* Diagnostics Sub-Footer */}
+      {/* Understated Clean Sub-Footer */}
       <div className="np-sidebar-footer">
-        <div className="np-diag-row">
-          <span>Diagnostics</span>
-          <span className="font-code" style={{ textTransform: 'none' }}>v2.4.1-field</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+          <span className="badge-demo">Demo Mode</span>
+          <span className="font-code" style={{ fontSize: '11px', color: 'var(--on-surface-variant)' }}>SIH 2026</span>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }} className="text-body-sm">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--secondary)' }}></span>
-            <span style={{ fontWeight: 500 }}>Operational Core</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--on-surface-variant)' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>storage</span>
-            <span>Local Storage Active</span>
-          </div>
-        </div>
+        <Link
+          to="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            color: 'var(--on-surface-variant)',
+            textDecoration: 'none',
+            fontSize: '12px',
+          }}
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>open_in_new</span>
+          <span>View Public Portal</span>
+        </Link>
       </div>
     </aside>
   );

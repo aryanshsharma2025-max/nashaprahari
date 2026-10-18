@@ -6,6 +6,7 @@ interface DesktopHeaderProps {
   pendingSyncCount: number;
   onSync: () => void;
   isSyncing: boolean;
+  onLogout?: () => void;
 }
 
 export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
@@ -13,6 +14,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pendingSyncCount,
   onSync,
   isSyncing,
+  onLogout,
 }) => {
   return (
     <header className="np-desktop-header">
@@ -84,8 +86,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
         <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-subtle)' }}></div>
 
-        {/* Officer Avatar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Officer Avatar & Sign Out */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div
             style={{
               width: '32px',
@@ -103,6 +105,19 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               person
             </span>
           </div>
+
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="btn btn-outline btn-sm"
+              title="Sign out of current officer session"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '4px 8px', fontSize: '12px' }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
+              <span>Sign Out</span>
+            </button>
+          )}
         </div>
       </div>
     </header>

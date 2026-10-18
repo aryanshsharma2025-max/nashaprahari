@@ -4,9 +4,10 @@ import type { OfficerSession } from '../../types/testRecord';
 interface MobileHeaderProps {
   session: OfficerSession;
   pendingSyncCount: number;
+  onLogout?: () => void;
 }
 
-export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSyncCount }) => {
+export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSyncCount, onLogout }) => {
   return (
     <header className="np-mobile-header pt-safe">
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -59,13 +60,13 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
             }}
             className="animate-pulse"
           ></span>
-          <span>Online · {pendingSyncCount} Pending</span>
+          <span>Online · {pendingSyncCount}</span>
         </div>
 
         <div
           style={{
-            width: '32px',
-            height: '32px',
+            width: '30px',
+            height: '30px',
             borderRadius: '50%',
             backgroundColor: 'var(--primary)',
             display: 'flex',
@@ -73,12 +74,36 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
             justifyContent: 'center',
             color: 'var(--on-primary)',
           }}
-          title={session.officerName}
+          title={`${session.officerName} (${session.officerBadge})`}
         >
-          <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
             person
           </span>
         </div>
+
+        {onLogout && (
+          <button
+            type="button"
+            onClick={onLogout}
+            aria-label="Sign out"
+            title="Sign out of officer terminal"
+            style={{
+              background: 'none',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '6px',
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--on-surface-variant)',
+              cursor: 'pointer',
+              minWidth: '30px',
+              minHeight: '30px',
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>logout</span>
+          </button>
+        )}
       </div>
     </header>
   );

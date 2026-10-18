@@ -13,6 +13,7 @@ interface AppShellProps {
   isSyncing: boolean;
   syncNotification: string | null;
   onDismissNotification: () => void;
+  onLogout?: () => void;
 }
 
 export const AppShell: React.FC<AppShellProps> = ({
@@ -22,6 +23,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   isSyncing,
   syncNotification,
   onDismissNotification,
+  onLogout,
 }) => {
   return (
     <div className="np-shell">
@@ -32,10 +34,15 @@ export const AppShell: React.FC<AppShellProps> = ({
         pendingSyncCount={pendingSyncCount}
         onSync={onSync}
         isSyncing={isSyncing}
+        onLogout={onLogout}
       />
 
       {/* Mobile Top Header */}
-      <MobileHeader session={session} pendingSyncCount={pendingSyncCount} />
+      <MobileHeader
+        session={session}
+        pendingSyncCount={pendingSyncCount}
+        onLogout={onLogout}
+      />
 
       {/* Main Content Area */}
       <main className="np-main-viewport">
@@ -72,7 +79,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <MobileBottomNav />
+      <MobileBottomNav pendingSyncCount={pendingSyncCount} />
     </div>
   );
 };
