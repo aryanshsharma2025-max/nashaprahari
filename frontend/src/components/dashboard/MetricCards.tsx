@@ -34,11 +34,11 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ metrics }) => {
         </div>
       </div>
 
-      {/* Card 2: Synced to Server */}
+      {/* Card 2: Synced to Ledger (Simulated) */}
       <div className="np-metric-card">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="text-label-md" style={{ color: 'var(--on-surface-variant)' }}>
-            Synced to Server
+            Synced to Ledger <span className="text-label-sm" style={{ fontSize: '11px', opacity: 0.8 }}>(Simulated)</span>
           </span>
           <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--secondary)' }}>
             cloud_done
@@ -49,7 +49,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ metrics }) => {
             {metrics.syncedCount}
           </span>
           <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            Verified
+            Uploaded
           </span>
         </div>
         <div className="np-metric-progress-bg">

@@ -162,10 +162,11 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
           <div>
-            <label className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
+            <label htmlFor="test-kit-type" className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
               Reagent Kit Type
             </label>
             <select
+              id="test-kit-type"
               className="np-select"
               value={testType}
               onChange={(e) => setTestType(e.target.value)}
@@ -179,10 +180,11 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
           </div>
 
           <div>
-            <label className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
+            <label htmlFor="test-kit-lot" className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
               Kit Lot Number
             </label>
             <select
+              id="test-kit-lot"
               className="np-select"
               value={lotNumber}
               onChange={(e) => setLotNumber(e.target.value)}
@@ -194,10 +196,11 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
           </div>
 
           <div>
-            <label className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
+            <label htmlFor="specimen-id" className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
               Specimen / Vehicle Reference
             </label>
             <input
+              id="specimen-id"
               type="text"
               className="np-search-input"
               placeholder="e.g. Vehicle HR-26-CZ-4102 / Bag 44"
@@ -208,13 +211,14 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
           </div>
 
           <div>
-            <label className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
+            <label htmlFor="reaction-result" className="text-label-sm" style={{ display: 'block', color: 'var(--on-surface-variant)', marginBottom: '4px' }}>
               Presumptive Reaction Result (Demonstration)
             </label>
             <select
+              id="reaction-result"
               className="np-select"
               value={simulatedResult}
-              onChange={(e) => setSimulatedResult(e.target.value as any)}
+              onChange={(e) => setSimulatedResult(e.target.value as 'presumptive_positive' | 'presumptive_negative' | 'inconclusive')}
               style={{ width: '100%', padding: '8px' }}
             >
               <option value="presumptive_positive">Presumptive Positive</option>

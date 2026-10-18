@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 interface ProtocolDetail {
@@ -42,6 +42,17 @@ const PROTOCOLS_MAP: Record<string, ProtocolDetail> = {
 
 export const ProtocolsCard: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ProtocolDetail | null>(null);
+
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModal(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModal]);
 
   return (
     <>

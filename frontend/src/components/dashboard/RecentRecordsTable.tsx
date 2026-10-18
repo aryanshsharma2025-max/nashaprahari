@@ -95,7 +95,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
             className="np-select"
             value={filterResult}
             onChange={(e) => {
-              setFilterResult(e.target.value as any);
+              setFilterResult(e.target.value as 'all' | 'presumptive_positive' | 'presumptive_negative' | 'inconclusive');
               setCurrentPage(1);
             }}
             aria-label="Filter by result"

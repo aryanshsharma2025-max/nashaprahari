@@ -37,6 +37,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span className="badge-demo" style={{ fontSize: '11px', padding: '2px 6px' }}>Demo</span>
         <div
           style={{
             display: 'flex',

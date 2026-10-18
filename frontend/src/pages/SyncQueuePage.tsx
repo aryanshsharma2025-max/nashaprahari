@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
+import { StatutoryNotice } from '../components/common/StatutoryNotice';
 
 interface SyncQueuePageProps {
   records: TestRecord[];
@@ -46,6 +47,8 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
           <span>{isSyncing ? 'Synchronizing...' : `Sync All Pending (${pendingRecords.length})`}</span>
         </button>
       </div>
+
+      <StatutoryNotice />
 
       {/* Honest Backend Boundary Notice */}
       <div style={{ padding: '12px 16px', background: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '6px' }}>

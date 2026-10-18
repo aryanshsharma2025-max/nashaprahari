@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { TestRecord } from '../types/testRecord';
+import { StatusBadge } from '../components/common/StatusBadge';
+import { StatutoryNotice } from '../components/common/StatutoryNotice';
 
 interface EvidenceLockerPageProps {
   records: TestRecord[];
@@ -28,6 +30,8 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
         </div>
         <span className="badge-demo font-tabular">{custodyRecords.length} Sealed Parcels</span>
       </div>
+
+      <StatutoryNotice />
 
       {/* Honest Scope Limit Notice */}
       <div style={{ padding: '12px 16px', background: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '6px' }}>
@@ -66,9 +70,7 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
                   <td className="font-code text-body-sm">{r.id}</td>
                   <td className="font-tabular text-body-sm">{r.chainOfCustody?.sealedAt}</td>
                   <td>
-                    <span className="text-body-sm font-code" style={{ fontWeight: 600 }}>
-                      {r.result === 'presumptive_positive' ? 'Presumptive Positive' : 'Presumptive Negative'}
-                    </span>
+                    <StatusBadge type="result" result={r.result} />
                   </td>
                   <td>
                     <span className="badge badge-synced font-tabular">{r.chainOfCustody?.dispatchStatus}</span>

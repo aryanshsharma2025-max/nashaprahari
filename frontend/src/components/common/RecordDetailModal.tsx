@@ -8,6 +8,16 @@ interface RecordDetailModalProps {
 }
 
 export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({ record, onClose }) => {
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!record) return null;
 
   return (
