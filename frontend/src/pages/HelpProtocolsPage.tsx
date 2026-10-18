@@ -60,19 +60,19 @@ export const HelpProtocolsPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Demonstration Content Notice */}
+      {/* Protocol Guidance Notice */}
       <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
           <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--secondary)' }}>
             info
           </span>
           <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
-            Demonstration Reference Guide
+            Field Protocol Reference Guide
           </strong>
-          <span className="badge-demo">Reference Standard</span>
+          <span className="badge-demo">Standard SOPs</span>
         </div>
         <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          This reference manual reflects standard presumptive field testing procedures compiled for Smart India Hackathon evaluation. During live field operations, officers must strictly follow official State Police Manuals and NDPS statutory circulars.
+          This reference manual summarizes standard presumptive field testing procedures under forensic protocols. During field operations, officers must strictly follow official State Police Manuals and NDPS statutory circulars.
         </p>
       </div>
 
@@ -221,7 +221,7 @@ export const HelpProtocolsPage: React.FC = () => {
                     <strong>Dual Officer Endorsement:</strong> The operating officer and witnessing supervisor must sign and date directly across the tape boundary with indelible marker.
                   </li>
                   <li>
-                    <strong>Vault Staging:</strong> Deposit the sealed envelope in the station evidence vault until courier dispatch to the authorized Forensic Science Laboratory (FSL).
+                    <strong>Malkhana Staging:</strong> Deposit the sealed envelope in the station Malkhana until formal courier dispatch to the authorized Forensic Science Laboratory (FSL).
                   </li>
                 </ul>
               </div>

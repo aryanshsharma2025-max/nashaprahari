@@ -18,20 +18,6 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
         <span style={{ color: '#fff', fontWeight: 800, fontSize: '16px', letterSpacing: '-0.01em' }}>
           NashaPrahari
         </span>
-        <span
-          style={{
-            fontSize: '10px',
-            fontWeight: 700,
-            padding: '1px 5px',
-            borderRadius: '3px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
-            color: 'rgba(255,255,255,0.9)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
-          Demo
-        </span>
       </div>
 
       {/* Status + Sign out */}

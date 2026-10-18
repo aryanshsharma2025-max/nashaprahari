@@ -47,7 +47,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           </span>
           <div style={{ fontSize: '14px' }}>
             <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{session.officerName}</span>
-            <span style={{ color: 'var(--text-muted)', marginLeft: '6px' }}>#{session.officerBadge}</span>
+            <span style={{ color: 'var(--text-muted)', marginLeft: '6px' }}>PNO #{session.officerBadge.replace(/^#/, '')}</span>
             <span style={{ color: 'var(--border)', margin: '0 6px' }}>·</span>
             <span style={{ color: 'var(--text-muted)' }}>{session.location}</span>
           </div>
@@ -62,7 +62,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               border: '1px solid #BFDBFE',
             }}
           >
-            DEMO
+            FIELD TERMINAL
           </span>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import type { TestRecord } from '../../types/testRecord';
 import { StatusBadge } from '../common/StatusBadge';
+import { formatIndianDate, formatIndianTimestamp } from '../../utils/formatters';
 
 interface RecentRecordsTableProps {
   records: TestRecord[];
@@ -58,7 +59,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
           <h2 className="text-title-md" style={{ color: 'var(--on-surface)' }}>
             Recent Records
           </h2>
-          <span className="badge-demo font-tabular">Sample Records ({filteredRecords.length})</span>
+          <span className="badge-demo font-tabular">Records ({filteredRecords.length})</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', flex: 1, justifyContent: 'flex-end' }}>
@@ -128,7 +129,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
             {paginatedRecords.length === 0 ? (
               <tr>
                 <td colSpan={7} style={{ textAlign: 'center', padding: '32px', color: 'var(--on-surface-variant)' }}>
-                  No matching demonstration records found.
+                  No matching records found.
                 </td>
               </tr>
             ) : (
@@ -138,7 +139,8 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
                     {rec.id}
                   </td>
                   <td className="font-tabular text-body-sm" style={{ color: 'var(--on-surface-variant)', whiteSpace: 'nowrap' }}>
-                    {rec.timestamp}
+                    <div>{formatIndianTimestamp(rec.timestamp)}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{formatIndianDate(rec.date)}</div>
                   </td>
                   <td>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -190,7 +192,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
       <div id="np-mobile-card-list" style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '12px' }}>
         {paginatedRecords.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '24px', color: 'var(--on-surface-variant)' }}>
-            No matching demonstration records found.
+            No matching records found.
           </div>
         ) : (
           paginatedRecords.map((rec) => (
@@ -198,7 +200,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span className="font-code text-title-sm" style={{ color: 'var(--primary)' }}>{rec.id}</span>
-                  <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>· {rec.timestamp}</span>
+                  <span className="text-body-sm font-tabular" style={{ color: 'var(--on-surface-variant)' }}>· {formatIndianTimestamp(rec.timestamp)} ({formatIndianDate(rec.date)})</span>
                 </div>
                 <StatusBadge type="sync" status={rec.syncStatus} />
               </div>
@@ -257,7 +259,7 @@ export const RecentRecordsTable: React.FC<RecentRecordsTableProps> = ({
         className="text-body-sm font-tabular"
       >
         <span style={{ color: 'var(--on-surface-variant)' }}>
-          Showing {paginatedRecords.length} of {filteredRecords.length} demo records (Page {currentPage} of {totalPages})
+          Showing {paginatedRecords.length} of {filteredRecords.length} records (Page {currentPage} of {totalPages})
         </span>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

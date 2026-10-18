@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import type { TestRecord } from '../../types/testRecord';
 import { StatusBadge } from '../common/StatusBadge';
 import { useIsMobile } from '../common/useIsMobile';
+import { formatIndianDate, formatIndianTimestamp } from '../../utils/formatters';
 
 interface RecentRecordsShortListProps {
   records: TestRecord[];
@@ -99,7 +100,7 @@ export const RecentRecordsShortList: React.FC<RecentRecordsShortListProps> = ({
                   <div className="np-short-record-sub">
                     <span className="np-record-location">{record.location}</span>
                     <span className="np-record-sep">·</span>
-                    <span className="np-record-meta">{record.timestamp}</span>
+                    <span className="np-record-meta">{formatIndianTimestamp(record.timestamp)} ({formatIndianDate(record.date)})</span>
                     {record.suspectIdentifier && (
                       <>
                         <span className="np-record-sep">·</span>

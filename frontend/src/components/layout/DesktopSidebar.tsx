@@ -68,7 +68,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                   NashaPrahari
                 </span>
                 <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '11px', marginTop: '1px' }}>
-                  SIH 2026 · Demo
+                  Field Operations Terminal
                 </span>
               </div>
             </div>
@@ -144,7 +144,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             >
               <div className="np-nav-item-left">
                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>inventory_2</span>
-                <span>Evidence Locker</span>
+                <span>Evidence & Malkhana</span>
               </div>
             </NavLink>
 
@@ -188,7 +188,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             </button>
           )}
           <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>
-            Field Evaluation Prototype
+            Field Operations Terminal v2.4
           </div>
           <Link
             to="/"

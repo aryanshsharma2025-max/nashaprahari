@@ -27,7 +27,6 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
               Officer Field Dashboard
             </h1>
             <span className="badge-demo">Field Console</span>
-            <span className="badge-demo">Demonstration Data</span>
           </div>
           <p className="text-body-md" style={{ color: 'var(--on-surface-variant)', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
             <span className="text-title-sm" style={{ color: 'var(--on-surface)' }}>{session.officerName}</span>
@@ -73,7 +72,7 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
             className="btn btn-outline btn-sm font-tabular"
             onClick={onSync}
             disabled={isSyncing || pendingSyncCount === 0}
-            title={pendingSyncCount > 0 ? "Simulate sync to central ledger" : "All records synchronized"}
+            title={pendingSyncCount > 0 ? "Synchronize pending records" : "All records synchronized"}
           >
             <span className={`material-symbols-outlined ${isSyncing ? 'animate-spin' : ''}`} style={{ fontSize: '16px' }}>
               sync

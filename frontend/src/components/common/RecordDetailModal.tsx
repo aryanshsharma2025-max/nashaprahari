@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import type { TestRecord } from '../../types/testRecord';
 import { StatusBadge } from './StatusBadge';
 import { useIsMobile } from './useIsMobile';
+import { formatIndianDate, formatIndianTimestamp } from '../../utils/formatters';
 
 interface RecordDetailModalProps {
   record: TestRecord | null;
@@ -108,10 +109,10 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                       >
                         {record.id}
                       </span>
-                      <span className="badge-demo">Demo Record</span>
+                      <span className="badge-demo">Presumptive Entry</span>
                     </div>
                     <span className="text-body-sm" style={{ color: 'var(--text-secondary)' }}>
-                      Recorded at {record.timestamp} · {record.date}
+                      Recorded at {formatIndianTimestamp(record.timestamp)} · {formatIndianDate(record.date)}
                     </span>
                   </div>
                 </div>
@@ -157,7 +158,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                       className="text-label-sm"
                       style={{ display: 'block', color: 'var(--text-secondary)', marginBottom: '4px' }}
                     >
-                      Central Sync Status
+                      Sync Status
                     </span>
                     <StatusBadge type="sync" status={record.syncStatus} />
                   </div>
@@ -195,7 +196,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                       {record.officerName}
                     </p>
                     <span className="font-code text-body-sm" style={{ color: 'var(--primary)', fontWeight: 600 }}>
-                      #{record.officerBadge}
+                      PNO #{record.officerBadge.replace(/^#/, '')}
                     </span>
                   </div>
                   {record.suspectIdentifier && (
@@ -276,7 +277,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                       className="text-body-sm"
                     >
                       <div>
-                        <span style={{ color: 'var(--text-secondary)' }}>Tamper Bag ID: </span>
+                        <span style={{ color: 'var(--text-secondary)' }}>Tamper Bag / Malkhana Serial: </span>
                         <span className="font-code" style={{ fontWeight: 700, color: 'var(--primary)' }}>
                           {record.chainOfCustody.tamperBagId}
                         </span>
@@ -284,11 +285,11 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                       <div>
                         <span style={{ color: 'var(--text-secondary)' }}>Sealed At: </span>
                         <span className="font-tabular" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
-                          {record.chainOfCustody.sealedAt}
+                          {formatIndianTimestamp(record.chainOfCustody.sealedAt)}
                         </span>
                       </div>
                       <div>
-                        <span style={{ color: 'var(--text-secondary)' }}>Vault Status: </span>
+                        <span style={{ color: 'var(--text-secondary)' }}>Malkhana Staging: </span>
                         <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
                           {record.chainOfCustody.dispatchStatus}
                         </span>

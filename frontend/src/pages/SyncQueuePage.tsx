@@ -5,6 +5,7 @@ import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
 import { useIsMobile } from '../components/common/useIsMobile';
+import { formatIndianDate, formatIndianTimestamp } from '../utils/formatters';
 
 interface SyncQueuePageProps {
   records: TestRecord[];
@@ -46,7 +47,7 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
             Pending Uploads Queue
           </h1>
           <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
-            Manage offline field records queued in local device storage awaiting central upload
+            Manage offline field records queued in local device storage awaiting batch upload
           </p>
         </div>
 
@@ -76,7 +77,7 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
           <span className="badge-demo">Local Queue</span>
         </div>
         <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          All recorded tests and evidence tamper seals are safely committed to your device's local storage memory. In this evaluation prototype, central FastAPI server synchronization is in development; manual sync promotes local pending records to the verified demonstration ledger.
+          All recorded field tests and evidence tamper seals are safely committed to your device's local offline storage memory. Ledger synchronization operates via batch upload; manual sync commits queued local records to the terminal's operational register.
         </p>
       </div>
 
@@ -131,7 +132,7 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
               {pendingRecords.length > 0 ? 'hourglass_top' : 'check_circle'}
             </span>
             <h2 className="text-title-sm" style={{ color: 'var(--primary)', fontWeight: 700, margin: 0 }}>
-              Awaiting Central Upload ({pendingRecords.length})
+              Awaiting Batch Sync ({pendingRecords.length})
             </h2>
           </div>
           {pendingRecords.length > 0 && (
@@ -194,7 +195,7 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
                         <span className="np-record-location">{r.location}</span>
                         {r.subLocation && <span className="np-record-meta">({r.subLocation})</span>}
                         <span className="np-record-sep">·</span>
-                        <span className="np-record-meta">{r.timestamp}</span>
+                        <span className="np-record-meta">{formatIndianTimestamp(r.timestamp)} ({formatIndianDate(r.date)})</span>
                       </div>
                     </div>
                   </div>
@@ -265,7 +266,7 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
                       <span className="np-record-location">{r.location}</span>
                       {r.subLocation && <span className="np-record-meta">({r.subLocation})</span>}
                       <span className="np-record-sep">·</span>
-                      <span className="np-record-meta">{r.timestamp}</span>
+                      <span className="np-record-meta">{formatIndianTimestamp(r.timestamp)} ({formatIndianDate(r.date)})</span>
                     </div>
                   </div>
                 </div>

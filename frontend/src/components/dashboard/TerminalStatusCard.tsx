@@ -14,7 +14,7 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
   const [scannedLot, setScannedLot] = useState<string | null>(null);
 
   const handleSimulateScan = () => {
-    setScannedLot('Verified: Kit Lot #NP-9042 (Exp: 2027-08 · Preservative Sealed)');
+    setScannedLot('Scanned: Kit Lot #NP-9042 (Exp: 2027-08 · Preservative Sealed)');
   };
 
   return (

@@ -15,8 +15,8 @@ const PROTOCOLS_MAP: Record<string, ProtocolDetail> = {
       '1. Wear clean disposable nitrile gloves before handling chemical test envelopes.',
       '2. Collect minimal representative specimen (10–20 mg powder or 1 drop liquid). Do not overload reagent ampoules.',
       '3. Seal used test pouch in high-security serialized tamper-evident envelope immediately.',
-      '4. Endorse tamper pouch with Officer Badge, Date, Case ID, and Suspect Vehicle/Identity.',
-      '5. Maintain chain-of-custody transfer log before transferring to central forensic evidence locker.',
+      '4. Endorse tamper pouch with Officer PNO Badge No., Date, Case ID, and Suspect Vehicle/Identity.',
+      '5. Maintain chain-of-custody transfer log before transferring to station Malkhana or central forensic evidence vault.',
     ],
   },
   helpline: {

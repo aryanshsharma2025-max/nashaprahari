@@ -161,3 +161,29 @@ body {
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* --------------------------------------------------------------------------
+   Subtle Indian Public Service Identity Details (Restrained & Tasteful)
+   -------------------------------------------------------------------------- */
+.np-tricolour-hairline {
+  height: 2.5px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #FF9933 0%,
+    #FF9933 33.33%,
+    #FFFFFF 33.33%,
+    #FFFFFF 66.66%,
+    #138808 66.66%,
+    #138808 100%
+  );
+  flex-shrink: 0;
+}
+
+.np-jaali-motif {
+  color: var(--primary);
+  opacity: 0.16;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}

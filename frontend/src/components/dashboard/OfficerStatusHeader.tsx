@@ -1,5 +1,6 @@
 import React from 'react';
 import type { OfficerSession } from '../../types/testRecord';
+import { IndiaOutlineMap } from '../common/IndiaOutlineMap';
 
 interface OfficerStatusHeaderProps {
   session: OfficerSession;
@@ -23,10 +24,22 @@ export const OfficerStatusHeader: React.FC<OfficerStatusHeaderProps> = ({
         <div className="np-officer-strip-text">
           <div className="np-officer-strip-name">
             <span>Welcome <strong>{session.officerName}</strong></span>
-            <span className="np-officer-strip-badge">Badge #{session.officerBadge}</span>
+            <span className="np-officer-strip-badge">PNO #{session.officerBadge.replace(/^#/, '')}</span>
           </div>
           <span className="np-officer-strip-sub">
-            {session.location} · {session.shift} ({session.sector})
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+              <IndiaOutlineMap
+                style={{ width: '13px', height: '15px', verticalAlign: '-1px', display: 'inline-block' }}
+                strokeColor="currentColor"
+                strokeWidth={2.4}
+                opacity={0.7}
+              />
+              <span>{session.location}</span>
+            </span>
+            {' · '}
+            <span>{session.shiftTiming || `${session.shift} (IST)`}</span>
+            {' · '}
+            <span>{session.sector}</span>
           </span>
         </div>
       </div>

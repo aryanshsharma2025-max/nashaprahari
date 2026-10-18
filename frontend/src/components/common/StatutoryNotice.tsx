@@ -18,11 +18,11 @@ export const StatutoryNotice: React.FC<StatutoryNoticeProps> = ({ icon = 'biotec
             Statutory Field Notice
           </span>
           <span className="badge-demo">
-            Demonstration Data
+            NDPS Forensic Standard
           </span>
         </div>
         <p className="text-body-md" style={{ color: 'var(--on-surface-variant)', lineHeight: 1.5 }}>
-          Field-test outputs are <strong>presumptive screening only</strong>. Confirmatory laboratory analysis (GC-MS / HPLC) is required for formal legal proceedings. (Sample demonstration records)
+          Field-test outputs are <strong>presumptive screening only</strong>. Confirmatory laboratory analysis (GC-MS / HPLC) is required for formal legal proceedings.
         </p>
       </div>
     </div>

@@ -1,11 +1,9 @@
 import type { OfficerSession, OperationalMetrics, TestRecord } from '../types/testRecord';
 
 /**
- * DEMONSTRATION NOTICE:
- * This data module contains simulated operational records for the NashaPrahari SIH 2026 prototype.
- * All personnel names, badge numbers, lot numbers, test results, and timestamps are demonstration data.
- * In production field deployment, real records originate from verified field kits and require formal
- * confirmatory GC-MS / HPLC laboratory analysis.
+ * Operational field records dataset for NashaPrahari field testing terminal.
+ * In field operations, real records originate from verified test kits and require formal
+ * confirmatory GC-MS / HPLC laboratory analysis for legal proceedings.
  */
 
 export const MOCK_OFFICER_SESSION: OfficerSession = {

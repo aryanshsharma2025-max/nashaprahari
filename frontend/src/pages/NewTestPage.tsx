@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import type { OfficerSession, TestRecord, PresumptiveResult } from '../types/testRecord';
 import { useIsMobile } from '../components/common/useIsMobile';
+import { formatIndianDate, formatIndianTimestamp } from '../utils/formatters';
 
 interface NewTestPageProps {
   session: OfficerSession;
@@ -152,7 +153,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
             {step === 1 && 'Step 1 of 3: Operational Location & Specimen'}
             {step === 2 && 'Step 2 of 3: Reagent Selection & Presumptive Outcome'}
             {step === 3 && 'Step 3 of 3: Compact Review & Confirm'}
-            {step === 4 && 'Record saved to local device queue (Pending central sync)'}
+            {step === 4 && 'Record saved to local device storage (Queued for sync)'}
           </p>
         </div>
 
@@ -220,7 +221,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                 </span>
                 <div style={{ fontSize: '13px' }}>
                   <span style={{ color: 'var(--on-surface-variant)' }}>Reporting Officer: </span>
-                  <strong style={{ color: 'var(--primary)' }}>{session.officerName}</strong> ({session.officerBadge}) · {session.sector}
+                  <strong style={{ color: 'var(--primary)' }}>{session.officerName}</strong> (PNO #{session.officerBadge.replace(/^#/, '')}) · {session.sector}
                 </div>
               </div>
 
@@ -252,7 +253,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                   )}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
                     <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
-                    {['Sector 4 Interceptor', 'Cargo Depot Lane 2', 'Highway Toll Barrier'].map((preset) => (
+                    {['Sector 4 Naka Checkpost', 'Interstate Toll Post', 'Cargo Bay Inbound'].map((preset) => (
                       <button
                         key={preset}
                         type="button"
@@ -291,7 +292,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                       setSubLocation(e.target.value);
                       if (errors.subLocation) setErrors((prev) => ({ ...prev, subLocation: undefined }));
                     }}
-                    placeholder="e.g. Inbound Lane 2 / Checkpoint Alpha"
+                    placeholder="e.g. Naka Barrier 1 / Inbound Heavy Lane"
                     style={{ width: '100%', maxWidth: 'none', height: '44px' }}
                     aria-invalid={Boolean(errors.subLocation)}
                     aria-describedby={errors.subLocation ? 'error-sublocation' : undefined}
@@ -304,7 +305,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                   )}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px', alignItems: 'center' }}>
                     <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px' }}>Presets:</span>
-                    {['Checkpoint Alpha', 'Inbound Lane 2', 'Inspection Bay 1'].map((preset) => (
+                    {['Naka Barrier 1', 'Inbound Heavy Lane', 'Inspection Bay 1'].map((preset) => (
                       <button
                         key={preset}
                         type="button"
@@ -573,7 +574,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
           <div className="np-review-grid">
             <div className="np-review-item">
               <span className="np-review-label">Reporting Officer</span>
-              <span className="np-review-val">{session.officerName} ({session.officerBadge})</span>
+              <span className="np-review-val">{session.officerName} (PNO #{session.officerBadge.replace(/^#/, '')})</span>
             </div>
 
             <div className="np-review-item">
@@ -704,10 +705,10 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
             <div style={{ fontSize: '13px', lineHeight: 1.45 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
                 <strong style={{ color: '#047857' }}>Saved Locally in Device Storage</strong>
-                <span className="badge badge-amber-accent" style={{ fontSize: '11px' }}>Pending Central Sync</span>
+                <span className="badge badge-amber-accent" style={{ fontSize: '11px' }}>Queued Locally</span>
               </div>
               <span style={{ color: 'var(--on-surface-variant)' }}>
-                This record is safely recorded in your device's offline storage. It is queued and will automatically synchronize with the central department ledger once network connectivity is available.
+                This record is safely committed to your device's offline local storage. It remains in the local queue until batch synchronized from the Pending Uploads panel.
               </span>
             </div>
           </div>
@@ -720,7 +721,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
             </div>
 
             <div className="np-review-item">
-              <span className="np-review-label">Tamper Bag ID</span>
+              <span className="np-review-label">Tamper Bag / Malkhana Serial</span>
               <span className="np-review-val" style={{ fontFamily: 'monospace' }}>
                 {savedRecord.chainOfCustody?.tamperBagId || 'Assigned'}
               </span>
@@ -753,7 +754,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
 
             <div className="np-review-item">
               <span className="np-review-label">Recorded At</span>
-              <span className="np-review-val">{savedRecord.timestamp} ({savedRecord.date})</span>
+              <span className="np-review-val">{formatIndianTimestamp(savedRecord.timestamp)} ({formatIndianDate(savedRecord.date)})</span>
             </div>
           </div>
 

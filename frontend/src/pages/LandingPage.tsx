@@ -1,12 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'motion/react';
 import type { OfficerSession } from '../types/testRecord';
+import { IndiaOutlineMap } from '../components/common/IndiaOutlineMap';
 
 interface LandingPageProps {
   session: OfficerSession | null;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Staggered entrance variants for hero content
+  const heroContainerVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
+      },
+    },
+  };
+
+  const heroItemVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.35, ease: 'easeOut' as const },
+    },
+  };
+
   return (
     <div className="np-landing-page">
       {/* Public Top Navigation Bar */}
@@ -19,10 +44,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
               </span>
             </div>
             <div>
-              <span style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '18px', letterSpacing: '-0.02em', display: 'block', lineHeight: 1.2 }}>
+              <span
+                style={{
+                  color: '#ffffff',
+                  fontWeight: 850,
+                  fontSize: '18px',
+                  letterSpacing: '-0.02em',
+                  display: 'block',
+                  lineHeight: 1.2,
+                }}
+              >
                 NashaPrahari
               </span>
-              <span style={{ color: 'var(--on-surface-variant)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <span
+                style={{
+                  color: 'rgba(255,255,255,0.82)',
+                  fontSize: '11px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  fontWeight: 600,
+                }}
+              >
                 Field Operations Companion
               </span>
             </div>
@@ -30,13 +72,43 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
 
           <div>
             {session ? (
-              <Link to="/dashboard" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <Link
+                to="/dashboard"
+                className="btn btn-sm"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ffffff',
+                  color: '#0D2B4E',
+                  fontWeight: 700,
+                  border: 'none',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                }}
+              >
                 <span>Open Dashboard</span>
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_forward</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+                  arrow_forward
+                </span>
               </Link>
             ) : (
-              <Link to="/login" className="btn btn-primary btn-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>lock</span>
+              <Link
+                to="/login"
+                className="btn btn-sm"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ffffff',
+                  color: '#0D2B4E',
+                  fontWeight: 700,
+                  border: 'none',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+                  lock
+                </span>
                 <span>Officer Login</span>
               </Link>
             )}
@@ -44,125 +116,226 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Local CC BY-SA photograph and a restrained India outline establish the public-service context. */}
       <section className="np-landing-hero">
-        <div className="np-landing-container">
-          <div className="np-landing-hero-content">
-            <span className="np-landing-hero-tag">
-              Smart India Hackathon Prototype (SIH 2026)
-            </span>
+        <div className="np-landing-hero-photo" aria-hidden="true" />
+        {/* Subtle Decorative Mainland India Outline */}
+        <motion.div
+          className="np-landing-hero-india-wrap"
+          aria-hidden="true"
+          initial={{ opacity: 0, scale: 0.94, x: shouldReduceMotion ? 0 : 20 }}
+          animate={{ opacity: 0.32, scale: 1, x: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: 'easeOut' }}
+        >
+          <IndiaOutlineMap
+            className="np-landing-hero-india-svg"
+            strokeColor="#ffffff"
+            strokeWidth={2.2}
+            opacity={1}
+          />
+        </motion.div>
 
-            <h1 className="np-landing-hero-title">
-              Digital Field Companion for Drug-Testing Operations
-            </h1>
+        {/* Traditional Geometric Jaali Line Motif Accent */}
+        <div className="np-landing-hero-motif-band" aria-hidden="true">
+          <svg width="320" height="12" viewBox="0 0 320 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="hero-jaali-pattern" width="16" height="12" patternUnits="userSpaceOnUse">
+                <path d="M8 0 L16 6 L8 12 L0 6 Z" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="0.8" />
+                <circle cx="8" cy="6" r="1.5" fill="rgba(255,255,255,0.25)" />
+              </pattern>
+            </defs>
+            <rect width="320" height="12" fill="url(#hero-jaali-pattern)" />
+          </svg>
+        </div>
 
-            <p className="np-landing-hero-desc">
-              Designed for police officers, highway checkposts, and mobile inspection units.
-              NashaPrahari standardizes presumptive chemical testing, logs serialized tamper-evident
-              evidence packaging, and maintains reliable offline recordkeeping in the field.
-            </p>
+        <div className="np-landing-container" style={{ position: 'relative', zIndex: 2 }}>
+          <motion.div
+            className="np-landing-hero-content"
+            variants={heroContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Operational Pre-Title Pill */}
+            <motion.div variants={heroItemVariants} className="np-hero-pretitle">
+              <span className="np-hero-pretitle-dot" aria-hidden="true" />
+              <span>FIELD TEST RECORDING &amp; RECORDKEEPING</span>
+            </motion.div>
 
-            <div className="np-landing-cta-row">
+            {/* Main Title */}
+            <motion.h1 variants={heroItemVariants} className="np-landing-hero-title">
+              NashaPrahari: a field companion for presumptive screening records
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p variants={heroItemVariants} className="np-landing-hero-desc">
+              A digital field companion for documenting presumptive chemical screening workflows, managing custody records,
+              reviewing offline queues, and accessing statutory protocols in one focused operational workspace.
+            </motion.p>
+
+            {/* CTA Buttons with Motion Feedback */}
+            <motion.div variants={heroItemVariants} className="np-landing-cta-row">
               {session ? (
-                <Link to="/dashboard" className="btn btn-primary np-landing-hero-btn">
-                  <span>Resume Officer Session ({session.officerName})</span>
-                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
-                </Link>
+                <motion.div
+                  whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                >
+                  <Link to="/dashboard" className="btn btn-landing-primary np-landing-hero-btn">
+                    <span>Resume Officer Session ({session.officerName})</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                      arrow_forward
+                    </span>
+                  </Link>
+                </motion.div>
               ) : (
-                <Link to="/login" className="btn btn-primary np-landing-hero-btn">
-                  <span>Officer Sign In</span>
-                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
-                </Link>
+                <motion.div
+                  whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                >
+                  <Link to="/login" className="btn btn-landing-primary np-landing-hero-btn">
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                      lock
+                    </span>
+                    <span>Officer Sign In</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                      arrow_forward
+                    </span>
+                  </Link>
+                </motion.div>
               )}
-              <a href="#capabilities" className="btn btn-outline np-landing-hero-btn">
-                <span>View System Capabilities</span>
-              </a>
-            </div>
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              >
+                <a href="#capabilities" className="btn btn-landing-secondary np-landing-hero-btn">
+                  <span>View System Capabilities</span>
+                </a>
+              </motion.div>
+            </motion.div>
 
-            {/* Prototype Notice */}
-            <div className="np-landing-scope-box">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--secondary)' }}>
-                  info
+            {/* Presumptive Screening Operational Notice */}
+            <motion.div variants={heroItemVariants} className="np-landing-scope-box">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: '#0D2B4E' }}>
+                  shield
                 </span>
-                <strong style={{ color: 'var(--primary)', fontSize: '13px' }}>
-                  Demonstration Notice:
+                <strong style={{ color: '#0D2B4E', fontSize: '13px', fontWeight: 800 }}>
+                  Presumptive Screening Standard
                 </strong>
-                <span className="badge-demo">Prototype</span>
+                <span className="badge-demo font-tabular" style={{ fontSize: '11px' }}>
+                  Forensic Notice
+                </span>
               </div>
-              <p style={{ color: 'var(--on-surface-variant)', fontSize: '12px', margin: 0, lineHeight: 1.45 }}>
-                Field screening results are presumptive under Section 50 of the NDPS Act and require confirmatory laboratory analysis (GC-MS / HPLC). Central FastAPI and PostgreSQL backend services are currently in development.
+              <p style={{ color: '#14304A', fontSize: '12.5px', margin: 0, lineHeight: 1.45 }}>
+                Field reagent test outputs provide preliminary presumptive screening only. Formal evidentiary
+                proceedings require custody sealing and confirmatory laboratory analysis (GC-MS / HPLC).
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Core Capabilities Section */}
-      <section id="capabilities" className="np-landing-section">
-        <div className="np-landing-container">
-          <div className="np-section-header">
-            <h2 className="text-headline-sm" style={{ color: 'var(--primary)', margin: 0 }}>
-              Principal Capabilities
-            </h2>
-            <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', marginTop: '4px' }}>
-              Four practical digital tools for officers operating in the field
-            </p>
-          </div>
+      {/* Compact Field Operations Suite Section (Replaces the 4 bulky cards) */}
+      <section id="capabilities" className="np-field-suite-section">
+        {/* Subtle Tricolour Bridge Detail connecting from the Saffron Hero */}
+        <div className="np-tricolour-hairline np-suite-tricolour-top" aria-hidden="true" />
 
-          <div className="np-capability-grid">
-            {/* Capability 1 */}
-            <div className="np-capability-card">
-              <div className="np-capability-icon-wrap icon-blue">
-                <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                  science
-                </span>
-              </div>
-              <h3 className="np-capability-title">Field Reagent Screening</h3>
-              <p className="np-capability-text">
-                Guided workflow for approved reagent test kits (Narcotics Kit A, Opioids B, Synthetics C, Cannabinoids D). Captures color reaction, lot number, and specimen identifiers.
-              </p>
+        <div className="np-landing-container">
+          <motion.div
+            className="np-suite-header"
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.32, ease: 'easeOut' }}
+          >
+            <div className="np-suite-tag">
+              <span className="np-suite-tag-dot" aria-hidden="true" />
+              <span>UNIFIED FIELD WORKFLOW</span>
             </div>
+            <h2 className="np-suite-title">Built for Field Operations</h2>
+            <p className="np-suite-subtitle">Four practical tools. One streamlined field workflow.</p>
+          </motion.div>
+
+          {/* Compact Feature Strip with 4 Connected Workflow Items */}
+          <motion.div
+            className="np-suite-strip"
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.35, delay: shouldReduceMotion ? 0 : 0.08, ease: 'easeOut' }}
+          >
+            {/* Capability 1 */}
+            <div className="np-suite-item">
+              <div className="np-suite-item-header">
+                <div className="np-suite-icon-box icon-blue" aria-hidden="true">
+                  <span className="material-symbols-outlined">science</span>
+                </div>
+                <span className="np-suite-step-num font-tabular">01</span>
+              </div>
+              <div className="np-suite-item-body">
+                <h3 className="np-suite-item-title">Field Reagent Screening</h3>
+                <p className="np-suite-item-desc">
+                  Guided presumptive chemical tests (Kits A–D) with instant colour-reaction matching.
+                </p>
+              </div>
+            </div>
+
+            {/* Separator / Step Connector for Desktop */}
+            <div className="np-suite-separator" aria-hidden="true" />
 
             {/* Capability 2 */}
-            <div className="np-capability-card">
-              <div className="np-capability-icon-wrap icon-teal">
-                <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                  inventory_2
-                </span>
+            <div className="np-suite-item">
+              <div className="np-suite-item-header">
+                <div className="np-suite-icon-box icon-teal" aria-hidden="true">
+                  <span className="material-symbols-outlined">inventory_2</span>
+                </div>
+                <span className="np-suite-step-num font-tabular">02</span>
               </div>
-              <h3 className="np-capability-title">Tamper Bag & Custody Logging</h3>
-              <p className="np-capability-text">
-                Issues serialized tamper-evident bag IDs (TB-XXXX) upon test completion. Enforces officer badge attribution and vault staging records for evidence integrity.
-              </p>
+              <div className="np-suite-item-body">
+                <h3 className="np-suite-item-title">Tamper Bag &amp; Custody Logging</h3>
+                <p className="np-suite-item-desc">
+                  Serialized evidence bag (TB-XXXX) tagging with officer attribution and seizure memos.
+                </p>
+              </div>
             </div>
+
+            {/* Separator / Step Connector for Desktop */}
+            <div className="np-suite-separator" aria-hidden="true" />
 
             {/* Capability 3 */}
-            <div className="np-capability-card">
-              <div className="np-capability-icon-wrap icon-amber">
-                <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                  cloud_off
-                </span>
+            <div className="np-suite-item">
+              <div className="np-suite-item-header">
+                <div className="np-suite-icon-box icon-amber" aria-hidden="true">
+                  <span className="material-symbols-outlined">cloud_off</span>
+                </div>
+                <span className="np-suite-step-num font-tabular">03</span>
               </div>
-              <h3 className="np-capability-title">Offline-First Recordkeeping</h3>
-              <p className="np-capability-text">
-                Operates without cellular network connectivity. Tests and evidence seals are queued locally on the device and can be batch-uploaded when online.
-              </p>
+              <div className="np-suite-item-body">
+                <h3 className="np-suite-item-title">Offline-First Recordkeeping</h3>
+                <p className="np-suite-item-desc">
+                  Full duty operation in low-coverage highway zones with local queue batch sync.
+                </p>
+              </div>
             </div>
 
+            {/* Separator / Step Connector for Desktop */}
+            <div className="np-suite-separator" aria-hidden="true" />
+
             {/* Capability 4 */}
-            <div className="np-capability-card">
-              <div className="np-capability-icon-wrap icon-purple">
-                <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                  menu_book
-                </span>
+            <div className="np-suite-item">
+              <div className="np-suite-item-header">
+                <div className="np-suite-icon-box icon-purple" aria-hidden="true">
+                  <span className="material-symbols-outlined">menu_book</span>
+                </div>
+                <span className="np-suite-step-num font-tabular">04</span>
               </div>
-              <h3 className="np-capability-title">Field SOPs & Protocols</h3>
-              <p className="np-capability-text">
-                Instant on-device reference for chemical handling precautions, mandatory protective gear (PPE), kit shelf-life verification, and spill protocols.
-              </p>
+              <div className="np-suite-item-body">
+                <h3 className="np-suite-item-title">Field SOPs &amp; Protocols</h3>
+                <p className="np-suite-item-desc">
+                  Immediate on-device chemical precautions, PPE directives, and emergency spill guidelines.
+                </p>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -178,7 +351,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px', maxWidth: '800px', margin: '0 auto' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '14px',
+              maxWidth: '800px',
+              margin: '0 auto',
+            }}
+          >
             <div className="np-panel" style={{ padding: '16px' }}>
               <strong style={{ color: 'var(--primary)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
                 1. Select Officer Login
@@ -193,7 +374,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
                 2. Enter Service Credentials
               </strong>
               <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                Enter your officer service ID / badge number and security PIN, or use the 1-click evaluation option.
+                Enter your officer service ID / badge number and security PIN, or use the quick sign-in option.
               </span>
             </div>
 
@@ -210,7 +391,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <Link to="/login" className="btn btn-primary" style={{ padding: '12px 28px' }}>
               <span>Proceed to Officer Login</span>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                arrow_forward
+              </span>
             </Link>
           </div>
         </div>
@@ -221,26 +404,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
         <div className="np-landing-container">
           <div className="np-footer-content">
             <div>
-              <span style={{ color: 'var(--primary)', fontWeight: 700, fontSize: '15px' }}>
-                NashaPrahari
-              </span>
-              <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0', maxWidth: '420px', lineHeight: 1.45 }}>
-                Digital field companion for drug-testing operations and evidence chain-of-custody tracking. Smart India Hackathon Prototype (SIH 2026).
+              <span style={{ color: 'var(--primary)', fontWeight: 700, fontSize: '15px' }}>NashaPrahari</span>
+              <p
+                className="text-body-sm"
+                style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0', maxWidth: '420px', lineHeight: 1.45 }}
+              >
+                Digital field companion for preliminary drug-testing operations, seizure documentation, and evidence chain-of-custody tracking.
               </p>
             </div>
 
             <div style={{ fontSize: '12px', color: 'var(--on-surface-variant)', lineHeight: 1.5, maxWidth: '460px' }}>
               <strong style={{ color: 'var(--primary)', display: 'block', marginBottom: '2px' }}>
-                Statutory Notice:
+                Screening notice:
               </strong>
-              Preliminary screening outputs are presumptive under Section 50 of the NDPS Act. Formal evidence requires confirmatory laboratory analysis (GC-MS / HPLC) by an authorized forensic laboratory.
+              Field screening outputs are presumptive and require confirmatory laboratory analysis when formal
+              confirmation is needed.
             </div>
           </div>
 
           <div className="np-footer-bottom">
-            <span>© 2026 NashaPrahari Project · Field Demonstration Version</span>
+            <span>© 2026 NashaPrahari · Narcotics Field Testing & Recordkeeping System</span>
             <div>
-              <Link to="/login" style={{ color: 'var(--secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '13px' }}>
+              <Link
+                to="/login"
+                style={{ color: 'var(--secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '13px' }}
+              >
                 Officer Sign In →
               </Link>
             </div>

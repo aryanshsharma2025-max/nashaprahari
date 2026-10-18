@@ -5,6 +5,7 @@ import type { TestRecord, PresumptiveResult } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
 import { useIsMobile } from '../components/common/useIsMobile';
+import { formatIndianDate, formatIndianTimestamp } from '../utils/formatters';
 
 interface RecordsHistoryPageProps {
   records: TestRecord[];
@@ -76,7 +77,7 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
             Field Records Ledger
           </h1>
           <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
-            Search, filter, and inspect verified field testing screening records and custody manifests
+            Search, filter, and inspect preliminary field screening records and custody manifests
           </p>
         </div>
 
@@ -213,6 +214,34 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
             <p className="text-body-sm" style={{ margin: 0 }}>
               Try searching with another keyword, clearing your filters, or recording a new test.
             </p>
+
+            {/* Indian Jaali Lattice Motif for Empty State */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '14px auto 0',
+                width: '100%',
+                maxWidth: '220px',
+                opacity: 0.16,
+                color: 'var(--primary)',
+                pointerEvents: 'none',
+              }}
+              aria-hidden="true"
+            >
+              <svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="np-jaali-empty" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M10 0 L20 10 L10 20 L0 10 Z" fill="none" stroke="currentColor" strokeWidth="0.8" />
+                    <path d="M0 0 L10 10 L20 0" fill="none" stroke="currentColor" strokeWidth="0.8" />
+                    <path d="M0 20 L10 10 L20 20" fill="none" stroke="currentColor" strokeWidth="0.8" />
+                    <circle cx="10" cy="10" r="2.2" fill="none" stroke="currentColor" strokeWidth="0.8" />
+                  </pattern>
+                </defs>
+                <rect width="200" height="20" fill="url(#np-jaali-empty)" />
+              </svg>
+            </div>
+
             <button
               type="button"
               className="btn btn-outline btn-sm"
@@ -252,7 +281,7 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
                         {rec.id}
                       </td>
                       <td className="font-tabular text-body-sm">
-                        {rec.timestamp} <span style={{ color: 'var(--on-surface-variant)' }}>({rec.date})</span>
+                        {formatIndianTimestamp(rec.timestamp)} <span style={{ color: 'var(--on-surface-variant)' }}>({formatIndianDate(rec.date)})</span>
                       </td>
                       <td className="text-body-sm">
                         <strong>{rec.location}</strong>
@@ -327,7 +356,7 @@ export const RecordsHistoryPage: React.FC<RecordsHistoryPageProps> = ({ records 
                           <span className="np-record-meta">({rec.subLocation})</span>
                         )}
                         <span className="np-record-sep">·</span>
-                        <span className="np-record-meta">{rec.timestamp}</span>
+                        <span className="np-record-meta">{formatIndianTimestamp(rec.timestamp)} ({formatIndianDate(rec.date)})</span>
                         {rec.suspectIdentifier && (
                           <>
                             <span className="np-record-sep">·</span>

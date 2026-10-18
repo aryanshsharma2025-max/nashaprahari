@@ -5,6 +5,7 @@ import type { TestRecord } from '../types/testRecord';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { RecordDetailModal } from '../components/common/RecordDetailModal';
 import { useIsMobile } from '../components/common/useIsMobile';
+import { formatIndianTimestamp } from '../utils/formatters';
 
 interface EvidenceLockerPageProps {
   records: TestRecord[];
@@ -66,10 +67,10 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <h1 className="text-headline-md" style={{ color: 'var(--primary)', margin: 0 }}>
-            Evidence Locker & Custody Registry
+            Evidence Locker & Malkhana Registry
           </h1>
           <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: '4px 0 0' }}>
-            Physical evidence parcel tracking and tamper-evident seal registry (Section 50 NDPS Act)
+            Physical evidence parcel tracking, Malkhana staging, and tamper-evident seal registry (Section 50 NDPS Act)
           </p>
         </div>
 
@@ -90,7 +91,7 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
           <span className="badge-demo">NDPS Procedures</span>
         </div>
         <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          Sealed tamper envelopes require dual-officer endorsement prior to formal handover for confirmatory GC-MS laboratory analysis. This demonstration registry records serial bag identifiers and staging status in the field vault.
+          Sealed tamper envelopes require dual-officer endorsement prior to formal handover for confirmatory GC-MS / FSL laboratory analysis. This registry records serial bag identifiers and Malkhana staging status in the field terminal vault.
         </p>
       </div>
 
@@ -137,7 +138,7 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
             className={`np-filter-chip ${statusFilter === 'queued' ? 'active' : ''}`}
             onClick={() => setStatusFilter('queued')}
           >
-            <span>Queued in Field Vault</span>
+            <span>Queued in Malkhana Vault</span>
           </button>
 
           <button
@@ -145,7 +146,7 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
             className={`np-filter-chip ${statusFilter === 'dispatched' ? 'active' : ''}`}
             onClick={() => setStatusFilter('dispatched')}
           >
-            <span>In Transit / Dispatched</span>
+            <span>In Transit to FSL Lab</span>
           </button>
         </div>
       </div>
@@ -204,7 +205,7 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
                       <span className="np-record-sep">·</span>
                       <span className="np-record-title">Case #{rec.id}</span>
                       <span className="np-record-sep">·</span>
-                      <span className="np-record-meta font-tabular">Sealed {rec.chainOfCustody?.sealedAt}</span>
+                      <span className="np-record-meta font-tabular">Sealed {formatIndianTimestamp(rec.chainOfCustody?.sealedAt)}</span>
                     </div>
                     <div className="np-short-record-sub">
                       <span className="np-record-location">Officer: {rec.chainOfCustody?.custodyOfficer}</span>

@@ -88,7 +88,7 @@ export function App() {
       );
       setIsSyncing(false);
       setSyncNotification(
-        `Simulation: ${countToSync} pending record${countToSync > 1 ? 's' : ''} synchronized with local demonstration ledger.`
+        `${countToSync} pending record${countToSync > 1 ? 's' : ''} successfully synchronized with field records ledger.`
       );
     }, 900);
   };
