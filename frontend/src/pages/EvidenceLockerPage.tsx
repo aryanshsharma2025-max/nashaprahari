@@ -79,20 +79,14 @@ export const EvidenceLockerPage: React.FC<EvidenceLockerPageProps> = ({ records 
         </span>
       </div>
 
-      {/* Honest Physical Protocol Notice */}
-      <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--primary)' }}>
-            verified_user
-          </span>
-          <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
-            Chain of Custody Standard Protocol
-          </strong>
-          <span className="badge-demo">NDPS Procedures</span>
-        </div>
-        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          Sealed tamper envelopes require dual-officer endorsement prior to formal handover for confirmatory GC-MS / FSL laboratory analysis. This registry records serial bag identifiers and Malkhana staging status in the field terminal vault.
-        </p>
+      {/* Custody Protocol Banner */}
+      <div style={{ padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>
+          verified_user
+        </span>
+        <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+          Evidence tamper bags (TB-XXXX) logged for Malkhana staging and FSL confirmatory handover.
+        </span>
       </div>
 
       {/* Search & Filter Bar */}

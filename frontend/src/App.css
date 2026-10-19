@@ -112,7 +112,7 @@
 .np-sidebar-close-btn {
   background: none;
   border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 4px;
+  border-radius: 3px;
   color: rgba(255,255,255,0.85);
   cursor: pointer;
   padding: 4px;
@@ -129,7 +129,7 @@
 
 .np-brand-icon {
   width: 34px; height: 34px;
-  border-radius: 6px;
+  border-radius: 3px;
   background-color: rgba(255,255,255,0.2);
   color: #fff;
   display: flex; align-items: center; justify-content: center;
@@ -148,7 +148,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 12px;
-  border-radius: 6px;
+  border-radius: 3px;
   color: rgba(255,255,255,0.8);
   text-decoration: none;
   font-size: 14px;
@@ -168,9 +168,10 @@
   background-color: #F9C74F;
   color: #7C4A00;
   padding: 1px 7px;
-  border-radius: 9999px;
+  border-radius: 2px;
   font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .np-sidebar-footer {
@@ -329,7 +330,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border-radius: 6px;
+  border-radius: 3px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
@@ -371,13 +372,14 @@
   padding: 6px 12px;
   min-height: 34px;
   font-size: 13px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .btn-lg {
   padding: 13px 24px;
   min-height: 50px;
   font-size: 15px;
+  border-radius: 3px;
 }
 
 .btn-danger {
@@ -393,7 +395,7 @@
   color: var(--primary);
   font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
   transition: all 0.12s ease;
 }
 
@@ -410,7 +412,7 @@
 .np-panel {
   background-color: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -433,7 +435,7 @@
   align-items: center;
   gap: 4px;
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 11.5px;
   font-weight: 600;
   line-height: 1.35;
@@ -477,7 +479,7 @@
   border: 1px solid #BFDBFE;
   font-size: 11px;
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: 2px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -487,12 +489,14 @@
   background-color: #FEF3C7;
   color: #92400E;
   border: 1px solid #FCD34D;
+  border-radius: 2px;
 }
 
 .badge-green-accent {
   background-color: #DCFCE7;
   color: #166534;
   border: 1px solid #86EFAC;
+  border-radius: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -535,7 +539,7 @@
   color: var(--text-primary);
   background-color: var(--surface-white);
   border: 1.5px solid var(--border);
-  border-radius: 6px;
+  border-radius: 3px;
   outline: none;
   transition: border-color 0.1s ease, box-shadow 0.1s ease;
 }
@@ -574,11 +578,11 @@
 
 .np-filter-chip {
   padding: 5px 12px;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1.5px solid var(--border);
   background-color: var(--surface-white);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
@@ -675,13 +679,13 @@
   justify-content: space-between;
   background: linear-gradient(135deg, #081D35 0%, #0D2B4E 54%, #143C68 100%);
   color: #fff;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 20px 24px;
   text-decoration: none;
   min-height: 94px;
   gap: 16px;
   border: 1px solid rgba(255, 153, 51, 0.35);
-  box-shadow: 0 8px 24px rgba(13, 43, 78, 0.16);
+  box-shadow: 0 4px 16px rgba(13, 43, 78, 0.16);
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
@@ -699,7 +703,7 @@
 
 .np-dominant-action-card:hover {
   border-color: rgba(255, 153, 51, 0.65);
-  box-shadow: 0 12px 28px rgba(13, 43, 78, 0.24);
+  box-shadow: 0 8px 20px rgba(13, 43, 78, 0.24);
 }
 
 .np-dominant-card-body {
@@ -710,9 +714,9 @@
 }
 
 .np-dominant-icon-badge {
-  width: 56px;
-  height: 56px;
-  border-radius: 10px;
+  width: 52px;
+  height: 52px;
+  border-radius: 3px;
   background-color: rgba(255, 153, 51, 0.15);
   border: 1.5px solid rgba(255, 153, 51, 0.35);
   color: #FFB366;
@@ -720,7 +724,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .np-dominant-text-block {
@@ -762,7 +766,7 @@
   background-color: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.85);
   padding: 1px 6px;
-  border-radius: 3px;
+  border-radius: 2px;
   letter-spacing: 0.02em;
 }
 
@@ -791,10 +795,10 @@
   font-size: 14px;
   font-weight: 700;
   padding: 10px 18px;
-  border-radius: 6px;
+  border-radius: 3px;
   flex-shrink: 0;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -824,8 +828,8 @@
 /* Each secondary action tile with subtle surface contrast & borders */
 .np-action-tile {
   background-color: var(--surface-white);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
   padding: 18px 14px;
   display: flex;
   flex-direction: column;
@@ -836,13 +840,13 @@
   text-decoration: none;
   color: var(--text-primary);
   min-height: 106px;
-  box-shadow: 0 2px 8px rgba(13, 43, 78, 0.04);
+  box-shadow: none;
   transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
 }
 
 .np-action-tile:hover {
   border-color: var(--primary);
-  box-shadow: 0 6px 16px rgba(20, 90, 158, 0.1);
+  box-shadow: 0 2px 8px rgba(20, 90, 158, 0.08);
   background-color: var(--surface-white);
 }
 
@@ -852,8 +856,8 @@
 }
 
 .np-action-tile-icon {
-  width: 48px; height: 48px;
-  border-radius: 50%;
+  width: 40px; height: 40px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -910,7 +914,7 @@
 .np-officer-strip {
   background-color: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -948,7 +952,7 @@
   font-family: monospace;
   font-size: 11px;
   padding: 1px 6px;
-  border-radius: 3px;
+  border-radius: 2px;
   border: 1px solid #C5D3E8;
   font-weight: 700;
 }
@@ -963,7 +967,7 @@
   gap: 5px;
   background-color: var(--surface-section);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 12px;
   color: var(--text-secondary);
   border: 1px solid var(--border);
@@ -987,7 +991,7 @@
 .np-officer-status-card {
   background-color: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -997,8 +1001,8 @@
 }
 .np-officer-info-group { display: flex; align-items: center; gap: 10px; }
 .np-officer-avatar {
-  width: 38px; height: 38px;
-  border-radius: 50%;
+  width: 36px; height: 36px;
+  border-radius: 3px;
   background-color: var(--primary-light);
   color: var(--primary);
   display: flex; align-items: center; justify-content: center;
@@ -1066,7 +1070,7 @@
 .np-short-record-icon {
   width: 38px;
   height: 38px;
-  border-radius: 6px;
+  border-radius: 3px;
   background-color: var(--primary-light);
   color: var(--primary);
   display: flex;
@@ -1100,7 +1104,7 @@
   background-color: #EBF2FA;
   border: 1px solid #D2E0F2;
   padding: 1px 6px;
-  border-radius: 4px;
+  border-radius: 2px;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
   flex-shrink: 0;
@@ -1150,7 +1154,7 @@
   background-color: var(--primary-light);
   border: 1px solid var(--border);
   padding: 1px 6px;
-  border-radius: 3px;
+  border-radius: 2px;
   letter-spacing: 0;
 }
 
@@ -1238,7 +1242,7 @@
   padding: 10px 14px;
   background-color: var(--color-info-bg);
   border: 1px solid #BFDBFE;
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 13px;
   color: var(--color-info);
 }
@@ -1260,10 +1264,10 @@
 }
 
 .np-stepper-num {
-  width: 26px; height: 26px;
-  border-radius: 50%;
+  width: 24px; height: 24px;
+  border-radius: 2px;
   background-color: var(--surface-section);
-  border: 2px solid var(--border);
+  border: 1.5px solid var(--border);
   color: var(--text-muted);
   font-size: 12px;
   font-weight: 700;
@@ -1329,8 +1333,8 @@
 
 .np-result-card {
   flex: 1;
-  border: 2px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
   padding: 14px;
   cursor: pointer;
   background-color: var(--surface-white);
@@ -1394,7 +1398,7 @@
   padding: 10px 14px;
   background-color: var(--surface-section);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
@@ -1408,7 +1412,7 @@
   padding: 12px 14px;
   border: 1px solid var(--border);
   border-top: none;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 3px 3px;
   background-color: var(--surface-white);
 }
 
@@ -1420,7 +1424,7 @@
   padding: 10px 14px;
   background-color: var(--color-info-bg);
   border: 1px solid #BFDBFE;
-  border-radius: 6px;
+  border-radius: 2px;
   font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -1430,7 +1434,7 @@
 .np-confirmation-card {
   background-color: var(--surface-white);
   border: 1px solid var(--color-positive-border);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -1439,8 +1443,8 @@
 
 .np-confirmation-header { display: flex; align-items: center; gap: 14px; }
 .np-confirmation-icon {
-  width: 48px; height: 48px;
-  border-radius: 50%;
+  width: 44px; height: 44px;
+  border-radius: 3px;
   background-color: var(--color-positive-bg);
   color: var(--color-positive);
   display: flex; align-items: center; justify-content: center;
@@ -1454,7 +1458,7 @@
   padding: 12px 14px;
   background-color: var(--color-info-bg);
   border: 1px solid #BFDBFE;
-  border-radius: 6px;
+  border-radius: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1540,7 +1544,7 @@
 
 .np-landing-logo-badge {
   width: 36px; height: 36px;
-  border-radius: 6px;
+  border-radius: 3px;
   background-color: rgba(255,255,255,0.2);
   color: #fff;
   display: flex; align-items: center; justify-content: center;
@@ -1640,10 +1644,10 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 20px;
-  padding: 4px 12px;
+  border-radius: 2px;
+  padding: 3px 10px;
   font-size: 11px;
   font-weight: 800;
   color: #ffffff;
@@ -1700,7 +1704,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 6px;
+  border-radius: 3px;
   text-decoration: none;
 }
 
@@ -1708,14 +1712,14 @@
   background-color: #0D2B4E;
   color: #ffffff !important;
   border: 1px solid #0D2B4E;
-  box-shadow: 0 4px 14px rgba(13, 43, 78, 0.32);
+  box-shadow: 0 3px 10px rgba(13, 43, 78, 0.25);
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-landing-primary:hover {
   background-color: #071C35;
   color: #ffffff !important;
-  box-shadow: 0 6px 18px rgba(13, 43, 78, 0.4);
+  box-shadow: 0 4px 14px rgba(13, 43, 78, 0.35);
 }
 
 .btn-landing-secondary {
@@ -1723,7 +1727,7 @@
   color: #0D2B4E !important;
   border: 1.5px solid #0D2B4E;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -1731,21 +1735,19 @@
   background-color: #ffffff;
   color: #071C35 !important;
   border-color: #071C35;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .np-landing-scope-box {
   width: 100%;
   max-width: 680px;
-  background-color: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(13, 43, 78, 0.15);
+  background-color: #ffffff;
+  border: 1px solid rgba(13, 43, 78, 0.2);
   border-left: 4px solid #0D2B4E;
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 14px 18px;
   text-align: left;
-  box-shadow: 0 6px 20px rgba(100, 30, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(13, 43, 78, 0.08);
 }
 
 .np-landing-container {
@@ -1778,8 +1780,8 @@
 
 .np-capability-card {
   background-color: var(--surface-white);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
   padding: 20px 14px;
   display: flex;
   flex-direction: column;
@@ -1792,8 +1794,8 @@
 .np-capability-card:hover { border-color: var(--primary); }
 
 .np-capability-icon-wrap {
-  width: 48px; height: 48px;
-  border-radius: 50%;
+  width: 40px; height: 40px;
+  border-radius: 3px;
   display: flex; align-items: center; justify-content: center;
 }
 
@@ -1823,7 +1825,7 @@
   color: var(--text-muted);
   background-color: var(--surface-section);
   padding: 2px 7px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1864,7 +1866,7 @@
   gap: 6px;
   background: rgba(13, 43, 78, 0.06);
   border: 1px solid rgba(13, 43, 78, 0.12);
-  border-radius: 999px;
+  border-radius: 2px;
   padding: 3px 10px;
   font-size: 11px;
   font-weight: 700;
@@ -1901,9 +1903,9 @@
   grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
   align-items: stretch;
   background-color: var(--surface-white);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(13, 43, 78, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: none;
   padding: 24px 20px;
 }
 
@@ -1923,9 +1925,9 @@
 }
 
 .np-suite-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1991,7 +1993,7 @@
     padding: 14px;
     background: #F8FAFC;
     border: 1px solid var(--border-light);
-    border-radius: 8px;
+    border-radius: 2px;
   }
 }
 
@@ -2037,7 +2039,7 @@
   padding: 14px;
   background-color: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 2px;
 }
 
 /* CTA Banner */
@@ -2137,10 +2139,10 @@
   background:
     radial-gradient(circle at 15% 0%, rgba(255, 153, 51, 0.16) 0%, transparent 50%),
     linear-gradient(155deg, #07192E 0%, #0D2B4E 52%, #123B69 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
   padding: 34px 30px;
-  box-shadow: 0 16px 40px rgba(13, 43, 78, 0.16);
+  box-shadow: 0 4px 20px rgba(13, 43, 78, 0.16);
   overflow: hidden;
   color: #ffffff;
 }
@@ -2173,16 +2175,16 @@
 }
 
 .np-login-brand-icon-wrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .np-login-brand-title {
@@ -2225,17 +2227,15 @@
   align-items: flex-start;
   gap: 12px;
   background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
   padding: 12px 14px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 .np-login-feature-icon {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 2px;
   background-color: rgba(255, 153, 51, 0.18);
   color: #FFB366;
   display: flex;
@@ -2269,7 +2269,7 @@
 .np-login-proto-notice {
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 12px 14px;
 }
 
@@ -2285,8 +2285,8 @@
   max-width: 430px;
   background-color: #ffffff;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 16px 40px rgba(13, 43, 78, 0.09);
+  border-radius: 3px;
+  box-shadow: 0 4px 18px rgba(13, 43, 78, 0.08);
   padding: 28px 24px 24px;
   position: relative;
 }
@@ -2295,7 +2295,7 @@
   padding: 12px 14px;
   background-color: var(--surface-section);
   border: 1px solid var(--border-light);
-  border-radius: 8px;
+  border-radius: 2px;
   margin-bottom: 18px;
 }
 
@@ -2310,7 +2310,7 @@
   max-width: none;
   height: 46px;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 3px;
   border: 1.5px solid var(--border);
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
@@ -2330,16 +2330,16 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 6px;
+  border-radius: 3px;
   margin-top: 4px;
   background-color: #0D2B4E;
-  box-shadow: 0 4px 14px rgba(13, 43, 78, 0.25);
+  box-shadow: 0 2px 8px rgba(13, 43, 78, 0.22);
   transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .np-login-submit-btn:hover {
   background-color: #071C35;
-  box-shadow: 0 6px 18px rgba(13, 43, 78, 0.32);
+  box-shadow: 0 4px 12px rgba(13, 43, 78, 0.3);
 }
 
 .np-login-divider {
@@ -2381,7 +2381,7 @@
   color: var(--text-primary);
   font-size: 13px;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: 3px;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
 
@@ -2409,7 +2409,7 @@
     min-width: 0;
     padding: 18px 16px 16px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 3px;
   }
 
   .np-login-brand-header {
@@ -2578,8 +2578,8 @@
 .np-modal-dialog {
   background-color: var(--surface-white);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 16px 40px rgba(13, 43, 78, 0.22);
+  border-radius: 3px;
+  box-shadow: 0 8px 30px rgba(13, 43, 78, 0.18);
   width: 100%;
   max-width: 640px;
   max-height: 90vh;
@@ -2600,7 +2600,7 @@
   .np-modal-dialog {
     max-width: 100%;
     max-height: 94vh;
-    border-radius: 16px 16px 0 0;
+    border-radius: 4px 4px 0 0;
     border-bottom: none;
   }
 }

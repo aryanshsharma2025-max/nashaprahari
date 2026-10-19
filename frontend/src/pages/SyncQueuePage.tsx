@@ -65,20 +65,14 @@ export const SyncQueuePage: React.FC<SyncQueuePageProps> = ({
         </button>
       </div>
 
-      {/* Honest Storage & Sync Boundary Callout */}
-      <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--secondary)' }}>
-            storage
-          </span>
-          <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
-            Offline Device Storage Status
-          </strong>
-          <span className="badge-demo">Local Queue</span>
-        </div>
-        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          All recorded field tests and evidence tamper seals are safely committed to your device's local offline storage memory. Ledger synchronization operates via batch upload; manual sync commits queued local records to the terminal's operational register.
-        </p>
+      {/* Offline Storage Status Banner */}
+      <div style={{ padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--secondary)' }}>
+          storage
+        </span>
+        <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+          Field records and custody seals are stored locally until synchronized.
+        </span>
       </div>
 
       {/* Queue Metrics Summary */}

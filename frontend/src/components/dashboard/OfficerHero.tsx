@@ -48,7 +48,7 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
               backgroundColor: 'var(--surface-container-low)',
               border: '1px solid var(--border-subtle)',
               padding: '6px 10px',
-              borderRadius: '4px',
+              borderRadius: '2px',
             }}
             className="text-label-sm font-tabular"
           >
@@ -110,9 +110,9 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
         <section
           style={{
             backgroundColor: 'var(--surface-container-lowest)',
-            borderRadius: '10px',
+            borderRadius: '2px',
             padding: '14px',
-            boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)',
+            boxShadow: 'none',
             display: 'flex',
             flexDirection: 'column',
             gap: '12px',
@@ -123,9 +123,9 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '8px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '3px',
                   backgroundColor: 'var(--primary-container)',
                   color: 'var(--on-primary)',
                   display: 'flex',
@@ -159,7 +159,7 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
           <div
             style={{
               backgroundColor: 'var(--surface-container-low)',
-              borderRadius: '6px',
+              borderRadius: '2px',
               padding: '10px 12px',
               display: 'flex',
               alignItems: 'center',
@@ -198,9 +198,9 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '8px',
+                width: '40px',
+                height: '40px',
+                borderRadius: '3px',
                 backgroundColor: 'rgba(255, 255, 255, 0.15)',
                 display: 'flex',
                 alignItems: 'center',
@@ -225,7 +225,7 @@ export const OfficerHero: React.FC<OfficerHeroProps> = ({
             style={{
               width: '32px',
               height: '32px',
-              borderRadius: '50%',
+              borderRadius: '3px',
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               display: 'flex',
               alignItems: 'center',

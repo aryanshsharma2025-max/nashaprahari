@@ -223,7 +223,7 @@ export const ProtocolsCard: React.FC = () => {
                   </p>
                 ))}
               </div>
-              <div style={{ padding: '10px', background: 'var(--surface-container-low)', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ padding: '10px', background: 'var(--surface-container-low)', borderRadius: '2px', border: '1px solid var(--border-subtle)' }}>
                 <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
                   Standard Operating Procedure issued under Zonal Field Enforcement Manual v2.4.
                 </span>

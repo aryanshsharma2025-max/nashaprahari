@@ -155,24 +155,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
             initial="hidden"
             animate="visible"
           >
-            {/* Operational Pre-Title Pill */}
+            {/* Operational Pre-Title */}
             <motion.div variants={heroItemVariants} className="np-hero-pretitle">
               <span className="np-hero-pretitle-dot" aria-hidden="true" />
-              <span>FIELD TEST RECORDING &amp; RECORDKEEPING</span>
+              <span>PRESUMPTIVE FIELD SCREENING &amp; EVIDENCE LOGGING</span>
             </motion.div>
 
             {/* Main Title */}
             <motion.h1 variants={heroItemVariants} className="np-landing-hero-title">
-              NashaPrahari: a field companion for presumptive screening records
+              Field Testing &amp; Chain-of-Custody Companion
             </motion.h1>
 
             {/* Description */}
             <motion.p variants={heroItemVariants} className="np-landing-hero-desc">
-              A digital field companion for documenting presumptive chemical screening workflows, managing custody records,
-              reviewing offline queues, and accessing statutory protocols in one focused operational workspace.
+              Standardized chemical reagent screening, serialized tamper-bag logging, and offline recordkeeping for field enforcement officers.
             </motion.p>
 
-            {/* CTA Buttons with Motion Feedback */}
+            {/* Single Prominent Officer CTA Button */}
             <motion.div variants={heroItemVariants} className="np-landing-cta-row">
               {session ? (
                 <motion.div
@@ -202,14 +201,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
                   </Link>
                 </motion.div>
               )}
-              <motion.div
-                whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-              >
-                <a href="#capabilities" className="btn btn-landing-secondary np-landing-hero-btn">
-                  <span>View System Capabilities</span>
-                </a>
-              </motion.div>
             </motion.div>
 
             {/* Presumptive Screening Operational Notice */}
@@ -339,65 +330,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ session }) => {
         </div>
       </section>
 
-      {/* How Authorized Officers Enter */}
-      <section className="np-landing-section np-bg-contrast">
-        <div className="np-landing-container">
-          <div className="np-section-header">
-            <h2 className="text-headline-sm" style={{ color: 'var(--primary)', margin: 0 }}>
-              How Authorized Officers Enter
-            </h2>
-            <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', marginTop: '4px' }}>
-              Access to field duty functions requires officer credentials
-            </p>
-          </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '14px',
-              maxWidth: '800px',
-              margin: '0 auto',
-            }}
-          >
-            <div className="np-panel" style={{ padding: '16px' }}>
-              <strong style={{ color: 'var(--primary)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
-                1. Select Officer Login
-              </strong>
-              <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                Tap the Officer Login button at the top of this page or in the navigation bar.
-              </span>
-            </div>
-
-            <div className="np-panel" style={{ padding: '16px' }}>
-              <strong style={{ color: 'var(--primary)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
-                2. Enter Service Credentials
-              </strong>
-              <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                Enter your officer service ID / badge number and security PIN, or use the quick sign-in option.
-              </span>
-            </div>
-
-            <div className="np-panel" style={{ padding: '16px' }}>
-              <strong style={{ color: 'var(--primary)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
-                3. Access Field Duty Dashboard
-              </strong>
-              <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                Perform field tests, search existing records, review pending uploads, and consult SOPs.
-              </span>
-            </div>
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <Link to="/login" className="btn btn-primary" style={{ padding: '12px 28px' }}>
-              <span>Proceed to Officer Login</span>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                arrow_forward
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Public Footer */}
       <footer className="np-landing-footer">

@@ -140,7 +140,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                     flexWrap: 'wrap',
                     padding: '12px 14px',
                     background: 'var(--surface-section)',
-                    borderRadius: '6px',
+                    borderRadius: '2px',
                     border: '1px solid var(--border-light)',
                   }}
                 >
@@ -215,7 +215,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                     style={{
                       padding: '12px 14px',
                       background: 'var(--surface-section)',
-                      borderRadius: '6px',
+                      borderRadius: '2px',
                       border: '1px solid var(--border-light)',
                     }}
                   >
@@ -240,7 +240,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                         color: 'var(--text-secondary)',
                         background: 'var(--surface-white)',
                         padding: '10px 12px',
-                        borderRadius: '4px',
+                        borderRadius: '2px',
                         border: '1px solid var(--border-light)',
                         margin: 0,
                       }}
@@ -256,7 +256,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                     style={{
                       padding: '12px 14px',
                       background: 'var(--surface-section)',
-                      borderRadius: '6px',
+                      borderRadius: '2px',
                       border: '1px solid var(--border)',
                     }}
                   >
@@ -304,7 +304,7 @@ export const RecordDetailModal: React.FC<RecordDetailModalProps> = ({
                     padding: '8px 12px',
                     background: 'var(--color-warning-bg)',
                     border: '1px solid var(--color-warning-border)',
-                    borderRadius: '4px',
+                    borderRadius: '2px',
                   }}
                 >
                   <span className="text-body-sm" style={{ color: 'var(--color-warning)' }}>

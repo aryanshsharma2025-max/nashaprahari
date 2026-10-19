@@ -30,14 +30,9 @@ export const RecentRecordsShortList: React.FC<RecentRecordsShortListProps> = ({
   return (
     <section className="np-panel" aria-label="Recent Field Tests">
       <div className="np-panel-header" style={{ padding: '12px 16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <h2 className="text-title-sm" style={{ color: 'var(--primary)', fontWeight: 700, margin: 0 }}>
-            Recent Field Tests
-          </h2>
-          <span className="badge-demo font-tabular" style={{ fontSize: '11px' }}>
-            Latest {recentRecords.length}
-          </span>
-        </div>
+        <h2 className="text-title-sm" style={{ color: 'var(--primary)', fontWeight: 700, margin: 0 }}>
+          Recent Field Tests
+        </h2>
 
         <Link
           to="/records"

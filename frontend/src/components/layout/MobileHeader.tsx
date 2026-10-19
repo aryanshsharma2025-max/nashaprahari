@@ -31,7 +31,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
               gap: '4px',
               backgroundColor: 'rgba(249, 199, 79, 0.25)',
               padding: '3px 7px',
-              borderRadius: '4px',
+              borderRadius: '2px',
               fontSize: '11px',
               fontWeight: 700,
               color: '#FFF7CD',
@@ -53,7 +53,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ session, pendingSync
             style={{
               background: 'none',
               border: '1px solid rgba(255,255,255,0.3)',
-              borderRadius: '5px',
+              borderRadius: '3px',
               padding: '4px 6px',
               display: 'flex',
               alignItems: 'center',

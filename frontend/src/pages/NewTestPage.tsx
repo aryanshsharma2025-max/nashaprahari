@@ -215,7 +215,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
               transition={stepTransition}
             >
               {/* Active Officer Identity Banner */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '3px' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--primary)' }}>
                   badge
                 </span>
@@ -265,7 +265,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                           border: '1px solid var(--outline-variant)',
                           backgroundColor: location === preset ? 'var(--surface-container-high)' : 'var(--surface)',
                           color: location === preset ? 'var(--primary)' : 'var(--on-surface)',
-                          borderRadius: '4px',
+                          borderRadius: '2px',
                           padding: '2px 8px',
                           fontSize: '11px',
                           fontWeight: location === preset ? 600 : 400,
@@ -317,7 +317,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
                           border: '1px solid var(--outline-variant)',
                           backgroundColor: subLocation === preset ? 'var(--surface-container-high)' : 'var(--surface)',
                           color: subLocation === preset ? 'var(--primary)' : 'var(--on-surface)',
-                          borderRadius: '4px',
+                          borderRadius: '2px',
                           padding: '2px 8px',
                           fontSize: '11px',
                           fontWeight: subLocation === preset ? 600 : 400,
@@ -640,7 +640,7 @@ export const NewTestPage: React.FC<NewTestPageProps> = ({ session, onAddRecord }
           </div>
 
           {/* Verification Notice */}
-          <div style={{ padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '6px', fontSize: '12px', color: 'var(--on-surface-variant)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', borderRadius: '3px', fontSize: '12px', color: 'var(--on-surface-variant)', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--secondary)' }}>
               lock
             </span>

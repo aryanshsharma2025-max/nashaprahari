@@ -60,20 +60,14 @@ export const HelpProtocolsPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Protocol Guidance Notice */}
-      <div style={{ padding: '14px 18px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--secondary)' }}>
-            info
-          </span>
-          <strong style={{ color: 'var(--primary)', fontSize: '14px' }}>
-            Field Protocol Reference Guide
-          </strong>
-          <span className="badge-demo">Standard SOPs</span>
-        </div>
-        <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.5 }}>
-          This reference manual summarizes standard presumptive field testing procedures under forensic protocols. During field operations, officers must strictly follow official State Police Manuals and NDPS statutory circulars.
-        </p>
+      {/* Protocol Guidance Banner */}
+      <div style={{ padding: '10px 14px', backgroundColor: 'var(--surface-container-low)', border: '1px solid var(--border-subtle)', borderRadius: '2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--secondary)' }}>
+          info
+        </span>
+        <span className="text-body-sm" style={{ color: 'var(--on-surface-variant)' }}>
+          Standard field screening reference. Follow official State Police Manuals and NDPS statutory circulars during duty.
+        </span>
       </div>
 
       {/* Protocol 1: Chemical Reagent Testing Procedure */}

@@ -122,42 +122,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ session, onLogin, onLogout
 
             {/* Mission Statement */}
             <p className="np-login-mission-statement">
-              A digital companion assisting field enforcement officers with preliminary chemical reagent screening,
-              seizure documentation, and evidence custody logging.
+              Digital field companion for narcotics screening workflows, seizure documentation, and evidence chain of custody.
             </p>
-
-            {/* Three Compact Feature Highlights on Translucent Cards */}
-            <div className="np-login-features-list" role="list">
-              <div className="np-login-feature-card" role="listitem">
-                <div className="np-login-feature-icon" aria-hidden="true">
-                  <span className="material-symbols-outlined">science</span>
-                </div>
-                <div className="np-login-feature-text">
-                  <strong>Field Test Recording</strong>
-                  <span>Guided recording of the details collected during a presumptive screening workflow.</span>
-                </div>
-              </div>
-
-              <div className="np-login-feature-card" role="listitem">
-                <div className="np-login-feature-icon" aria-hidden="true">
-                  <span className="material-symbols-outlined">inventory_2</span>
-                </div>
-                <div className="np-login-feature-text">
-                  <strong>Record Retrieval</strong>
-                  <span>Quickly inspect field test registries, bag numbers, and seizure memos.</span>
-                </div>
-              </div>
-
-              <div className="np-login-feature-card" role="listitem">
-                <div className="np-login-feature-icon" aria-hidden="true">
-                  <span className="material-symbols-outlined">cloud_sync</span>
-                </div>
-                <div className="np-login-feature-text">
-                  <strong>Pending Uploads</strong>
-                  <span>Manage offline device queue items with staged batch synchronization.</span>
-                </div>
-              </div>
-            </div>
 
             {/* Operational Screening & Custody Standard */}
             <div className="np-login-proto-notice">
@@ -184,7 +150,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ session, onLogin, onLogout
         >
           <div className="np-login-box">
             {/* Tricolour Hairline Accent on Card Top */}
-            <div className="np-tricolour-hairline" style={{ borderRadius: '6px 6px 0 0', marginBottom: '18px' }} />
+            <div className="np-tricolour-hairline" style={{ borderRadius: '2px 2px 0 0', marginBottom: '18px' }} />
 
             <div className="np-login-panel-header" style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
@@ -269,19 +235,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ session, onLogin, onLogout
                   </div>
                 )}
 
-                {/* Field Session Access Notice */}
-                <div className="np-login-demo-callout">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                    <span className="badge-demo">Field Access</span>
-                    <span className="text-label-sm" style={{ color: 'var(--primary)', fontWeight: 700 }}>
-                      Operational Sign-In
-                    </span>
-                  </div>
-                  <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', margin: 0, lineHeight: 1.4 }}>
-                    Enter your assigned service badge number (e.g. <code>84920</code>) and PIN, or use the 1-Click
-                    Authorized Sign In below for immediate field access.
-                  </p>
-                </div>
+
 
                 {/* Auth Error Banner */}
                 {authError && (

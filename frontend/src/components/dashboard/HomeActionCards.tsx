@@ -35,13 +35,9 @@ export const HomeActionCards: React.FC<HomeActionCardsProps> = ({
               </span>
             </div>
             <div className="np-dominant-text-block">
-              <div className="np-dominant-tag-wrap">
-                <span className="np-dominant-tag">PRIMARY TASK</span>
-                <span className="np-dominant-badge">Field Screening</span>
-              </div>
               <h2 className="np-dominant-title">NEW FIELD TEST</h2>
               <span className="np-dominant-subtitle">
-                Initiate presumptive chemical reagent test with custody logging
+                Presumptive reagent test &amp; evidence custody log
               </span>
             </div>
           </div>

@@ -47,7 +47,7 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
             gap: '12px',
             padding: '10px 12px',
             backgroundColor: 'var(--surface-container-low)',
-            borderRadius: '6px',
+            borderRadius: '2px',
             border: '1px solid var(--border-subtle)',
           }}
         >
@@ -73,7 +73,7 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
             gap: '12px',
             padding: '10px 12px',
             backgroundColor: 'var(--surface-container-low)',
-            borderRadius: '6px',
+            borderRadius: '2px',
             border: '1px solid var(--border-subtle)',
           }}
         >
@@ -103,7 +103,7 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
             gap: '12px',
             padding: '10px 12px',
             backgroundColor: 'var(--surface-container-low)',
-            borderRadius: '6px',
+            borderRadius: '2px',
             border: '1px solid var(--border-subtle)',
           }}
         >
@@ -126,7 +126,7 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
           style={{
             padding: '12px',
             backgroundColor: 'var(--surface-container)',
-            borderRadius: '6px',
+            borderRadius: '2px',
             border: '1px solid var(--border-subtle)',
             display: 'flex',
             flexDirection: 'column',
@@ -155,12 +155,12 @@ export const TerminalStatusCard: React.FC<TerminalStatusCardProps> = ({
           </div>
 
           {scannerOpen && (
-            <div style={{ padding: '10px', backgroundColor: 'var(--surface-container-lowest)', borderRadius: '4px', border: '1px dashed var(--outline-variant)', marginTop: '4px' }}>
+            <div style={{ padding: '10px', backgroundColor: 'var(--surface-container-lowest)', borderRadius: '2px', border: '1px dashed var(--outline-variant)', marginTop: '4px' }}>
               <p className="text-body-sm" style={{ color: 'var(--on-surface-variant)', marginBottom: '8px' }}>
                 Hardware barcode scanner emulator (Camera or optical wand input).
               </p>
               {scannedLot ? (
-                <div style={{ padding: '8px', background: 'var(--success-bg)', border: '1px solid var(--success-border)', borderRadius: '4px' }}>
+                <div style={{ padding: '8px', background: 'var(--success-bg)', border: '1px solid var(--success-border)', borderRadius: '2px' }}>
                   <span className="text-body-sm font-code" style={{ color: 'var(--success-text)' }}>{scannedLot}</span>
                 </div>
               ) : (
